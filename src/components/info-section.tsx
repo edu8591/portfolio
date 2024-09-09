@@ -1,4 +1,5 @@
 import { AboutMe } from "./about-me";
+import { Technologies } from "./technologies";
 
 export const InfoSection = () => {
   return (
@@ -7,6 +8,7 @@ export const InfoSection = () => {
 
       <h3>Work Experience</h3>
 
+      <Technologies />
       <h3>Projects</h3>
     </div>
   );
