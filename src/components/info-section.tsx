@@ -1,4 +1,5 @@
 import { AboutMe } from "./about-me";
+import { Experience } from "./experience";
 import { Technologies } from "./technologies";
 
 export const InfoSection = () => {
@@ -7,7 +8,7 @@ export const InfoSection = () => {
       <AboutMe />
 
       <h3>Work Experience</h3>
-
+      <Experience />
       <Technologies />
       <h3>Projects</h3>
     </div>
