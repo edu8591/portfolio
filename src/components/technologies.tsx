@@ -1,41 +1,75 @@
-import Image from "next/image";
-import { NextSvg } from "./next-svg";
+// import Image from "next/image";
+// import { NextSvg } from "./svg/next-svg";
 import { TooltipWrapper } from "./tooltip-wrapper";
+import { GrayscaleImage } from "./grayscale-image";
 
 export const Technologies = () => {
   return (
-    <div className="flex justify-between w-full px-8">
-      <TooltipWrapper description="Next.js">
-        <NextSvg height={50} width={50} className="fill-white" />
-      </TooltipWrapper>
-      <TooltipWrapper description="React.js">
-        <Image
-          src="/icons/react.svg"
-          alt="Reactjs icon"
-          width={50}
-          height={50}
-          className="animate-spin-slow"
-        />
-      </TooltipWrapper>
-      <TooltipWrapper description="Nest.js">
-        <Image
-          src="/icons/nestjs.svg"
-          alt="Nestjs icon"
-          width={50}
-          height={50}
-        />
-      </TooltipWrapper>
-      <TooltipWrapper description="Ruby on Rails">
-        <Image
-          src="/icons/rails.svg"
-          alt="Ruby on Rails icon"
-          width={50}
-          height={50}
-        />
-      </TooltipWrapper>
-      <TooltipWrapper description="Git">
-        <Image src="/icons/git.svg" alt="Git icon" width={60} height={60} />
-      </TooltipWrapper>
+    <div className="">
+      <h3 className="mb-3 text-2xl font-semibold">Technologies</h3>
+
+      <div className="grid grid-cols-3 gap-x-12 gap-y-4 md:grid-cols-4 md:gap-x-8 lg:grid-cols-5  lg:gap-6">
+        <TooltipWrapper description="HTML5">
+          <GrayscaleImage icon="html" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Css">
+          <GrayscaleImage icon="css" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="React.js">
+          <GrayscaleImage
+            icon="react"
+            height={60}
+            width={60}
+            className="hover:animate-spin-slow"
+          />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Next.js">
+          <GrayscaleImage icon="nextjs" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Nest.js">
+          <GrayscaleImage icon="nestjs" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Node.js">
+          <GrayscaleImage icon="node" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Typescript">
+          <GrayscaleImage icon="typescript" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Ruby">
+          <GrayscaleImage icon="ruby" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Rails">
+          <GrayscaleImage icon="rails" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Tailwind">
+          <GrayscaleImage icon="tailwind" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Bootstrap">
+          <GrayscaleImage icon="bootstrap" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Git">
+          <GrayscaleImage icon="git" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="Github">
+          <GrayscaleImage icon="github" height={60} width={60} />
+        </TooltipWrapper>
+
+        <TooltipWrapper description="PostgreSQL">
+          <GrayscaleImage icon="psql" height={60} width={60} />
+        </TooltipWrapper>
+      </div>
     </div>
   );
 };
