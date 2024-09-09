@@ -8,9 +8,9 @@ export const AboutMe = () => {
           development through YouTube videos and instantly became captivated.
           What started as curiosity quickly turned into a passion. By 2021, I
           knew I wanted to turn this passion into a career. I enrolled in a
-          380-hour Le Wagon bootcamp, where I immersed myself in the world of
-          web development, mastering full-stack app creation with Ruby on Rails
-          and finding my true calling in tech.
+          380-hour bootcamp by , where I immersed myself in the world of web
+          development, mastering full-stack app creation with Ruby on Rails and
+          finding my true calling in tech.
         </p>
         <p>
           Lately, {"I’ve"} been focused on implementing best practices in my
