@@ -4,9 +4,9 @@ import { InfoSection, IntroSection } from "@/components";
 
 export default function Home() {
   return (
-    <div className="grid md:grid-cols-2 h-screen max-w-[1080px] mx-auto pt-5">
+    <main className="grid md:grid-cols-2 h-screen max-w-[1080px] mx-auto pt-5">
       <IntroSection />
       <InfoSection />
-    </div>
+    </main>
   );
 }
