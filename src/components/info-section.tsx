@@ -1,7 +1,13 @@
+import { AboutMe } from "./about-me";
 
 export const InfoSection = () => {
+  return (
+    <div className="md:h-[calc(100vh-20px)] md:overflow-y-scroll px-4 gap-y-6 pt-5">
+      <AboutMe />
 
-  return <div className="md:h-[calc(100vh-20px)] border border-blue-500 md:overflow-y-scroll px-4">
-    <p>description</p>
-  </div>
-}
+      <h3>Work Experience</h3>
+
+      <h3>Projects</h3>
+    </div>
+  );
+};
