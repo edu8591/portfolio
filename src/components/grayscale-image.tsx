@@ -35,7 +35,7 @@ export const GrayscaleImage = ({
       width={width}
       alt={`${icon} logo`}
       className={cn(
-        "grayscale hover:grayscale-0 transition duration-400 ease-in-out",
+        "md:grayscale hover:grayscale-0 transition duration-400 ease-in-out",
         className ?? className
       )}
     />
