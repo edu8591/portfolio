@@ -10,9 +10,8 @@ export const IntroSection = () => {
       <Image
         src="/images/profile.jpg"
         alt="Profile image"
-        width={300}
-        height={300}
-        className="rounded-xl"
+        width={200}
+        height={200}
       />
       <h1 className=" text-4xl md:text-5xl font-bold sm:text-center">
         Eduardo Serrano
