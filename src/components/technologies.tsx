@@ -2,11 +2,12 @@
 // import { NextSvg } from "./svg/next-svg";
 import { TooltipWrapper } from "./tooltip-wrapper";
 import { GrayscaleImage } from "./grayscale-image";
+import { Title } from "./title";
 
 export const Technologies = () => {
   return (
     <section className="mb-16">
-      <h3 className="mb-3 text-2xl font-semibold">Technologies</h3>
+      <Title>Technologies</Title>
 
       <div className="grid grid-cols-3 gap-x-12 gap-y-4 md:grid-cols-4 md:gap-x-8 lg:grid-cols-5  lg:gap-6">
         <TooltipWrapper description="HTML5">

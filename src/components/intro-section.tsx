@@ -17,6 +17,7 @@ export const IntroSection = () => {
         Eduardo Serrano
       </h1>
       <h2 className="text-xl font-semibold">Full Stack Web Developer</h2>
+
       <Separator className="my-4 w-3/4" />
       <p className="w-3/4">
         Building responsive full-stack REST web applications and performant
@@ -26,29 +27,19 @@ export const IntroSection = () => {
       <div className="md:mt-auto pb-5 md:pb-14 flex gap-x-8  md:pt-0">
         <Link
           href="https://github.com/edu8591"
-          className="hover:cursor-pointer"
+          className="hover:cursor-pointer relative w-10 h-10 md:w-14 md:h-14"
           target="_blank"
         >
-          <Image
-            src="/icons/github.svg"
-            width={50}
-            height={50}
-            alt="github icon"
-            className="w-14 h-14 sm:w-8 sm:h-8"
-          />
+          <Image src="/icons/github.svg" fill alt="github icon" />
         </Link>
         <Link
           href="https://www.linkedin.com/in/edo-desu/"
-          className="hover:cursor-pointer"
+          className="hover:cursor-pointer relative w-10 h-10 md:w-14 md:h-14"
           target="_blank"
         >
-          <Image
-            src="/icons/linkedin.svg"
-            width={50}
-            height={50}
-            alt="linkedin icon"
-            className="w-14 h-14 sm:w-8 sm:h-8"
-          />
+          <div>
+            <Image src="/icons/linkedin.svg" fill alt="linkedin icon" />
+          </div>
         </Link>
       </div>
     </div>

@@ -7,7 +7,7 @@ type ExperienceItemProps = {
 
 export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   return (
-    <Card className="px-5 py-2 lg:px-2 hover:scale-102 shadow-md hover:shadow-lg transition-transform duration-150 ">
+    <Card className="px-5 py-2 lg:px-2 md:hover:scale-102 shadow-md md:hover:shadow-lg transition-transform duration-150 ">
       <div className="flex flex-row-reverse justify-between items-center lg:grid lg:grid-cols-4 lg:items-start">
         <p className="text-muted-foreground text-sm md:pt-1">
           {experience.date}
