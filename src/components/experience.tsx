@@ -1,5 +1,4 @@
 import { experiences } from "@/constants/experiences";
-import { Badge, Card, CardHeader, CardTitle, Separator } from "./ui";
 import { ExperienceItem } from "./experience-item";
 
 export const Experience = () => {
