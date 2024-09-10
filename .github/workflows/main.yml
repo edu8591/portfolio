@@ -15,20 +15,20 @@ jobs:
     steps:
       # Step 1: Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 9
+          run_install: false
 
       # Step 2: Set up Node.js environment
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.20.4' # Use your specified Node.js version
-          cache: 'pnpm' # Use pnpm cache to speed up future installs
-
-      # Step 3: Set up pnpm
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.7.0 # Specify the version of pnpm you want to use
+          node-version: 20
+          cache: 'pnpm'
 
       # Step 4: Install dependencies using pnpm
       - name: Install dependencies
