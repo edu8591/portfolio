@@ -1,7 +1,10 @@
+import { Title } from "./title";
+
 export const AboutMe = () => {
   return (
     <section className="mb-16">
-      <h3 className="mb-3 text-2xl font-semibold">About me</h3>
+      <Title>About me</Title>
+
       <div className="flex flex-col gap-y-5">
         <p>
           In 2020, while working from home during the pandemic, I discovered web

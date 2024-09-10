@@ -1,6 +1,7 @@
 import { experiences } from "@/constants/experiences";
 import { Badge, Card, CardHeader, CardTitle, Separator } from "./ui";
 import { ExperienceItem } from "./experience-item";
+import { Title } from "./title";
 
 export const Experience = () => {
   const renderedExperiences = experiences.map((experience) => (
@@ -8,8 +9,8 @@ export const Experience = () => {
   ));
 
   return (
-    <section className="mb-16 ">
-      <h3 className="mb-3 text-2xl font-semibold">Work Experience</h3>
+    <section className="mb-16">
+      <Title>Work Experience</Title>
 
       <div className="flex flex-col gap-y-6">{renderedExperiences}</div>
     </section>
