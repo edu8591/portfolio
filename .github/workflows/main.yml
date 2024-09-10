@@ -1,6 +1,5 @@
 name: Build Check
 
-# Run this workflow on push or pull requests to the main branch
 on:
   push:
     branches:
@@ -13,18 +12,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # Steps to run in the build job
     steps:
       # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js with the specified version
+      # Step 2: Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Use the version of Node.js your project requires
-          cache: 'pnpm' # Cache pnpm dependencies
+          node-version: '18.20.4' # Make sure this matches your Node.js version
+          cache: 'pnpm' # Use pnpm cache to speed up future installs
 
       # Step 3: Install pnpm
       - name: Install pnpm
@@ -34,10 +32,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      # Step 5: Build the Next.js project
+      # Step 5: Build the project
       - name: Build project
         run: pnpm run build
-
-      # Optionally: Step 6 - Run tests
-     # - name: Run tests
-      #  run: pnpm run test
