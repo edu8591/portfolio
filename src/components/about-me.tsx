@@ -21,10 +21,10 @@ export const AboutMe = () => {
         </p>
 
         <p>
-          In my free time, I enjoy playing video games, spending time with my
-          dogs, watching crime series on Netflix, and exploring new
-          technologies—right now, {"I'm"} diving into game development with
-          Unity. I also love scuba diving whenever I get the chance.
+          In my free time, I enjoy playing video games, play with my dogs,
+          watching crime series on Netflix, and exploring new technologies—right
+          now, {"I'm"} diving into game development with Unity. I also love
+          scuba diving whenever I get the chance.
         </p>
       </div>
     </section>
