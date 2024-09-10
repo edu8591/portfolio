@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      scale: {
+        "102": "1.02",
+      },
       animation: {
         "spin-slow": "spin 3s linear infinite",
       },
