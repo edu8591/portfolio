@@ -5,3 +5,4 @@ export * from "./technologies";
 export * from "./info-section";
 export * from "./about-me";
 export * from "./grayscale-image";
+export * from "./theme-provider";
