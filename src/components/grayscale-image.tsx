@@ -16,7 +16,8 @@ type GrayscaleImageProps = {
     | "ruby"
     | "react"
     | "tailwind"
-    | "typescript";
+    | "typescript"
+    | "linux";
   height: number;
   width: number;
   className?: string;

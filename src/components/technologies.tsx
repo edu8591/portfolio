@@ -69,6 +69,10 @@ export const Technologies = () => {
         <TooltipWrapper description="PostgreSQL">
           <GrayscaleImage icon="psql" height={60} width={60} />
         </TooltipWrapper>
+
+        <TooltipWrapper description="Linux">
+          <GrayscaleImage icon="linux" height={60} width={60} />
+        </TooltipWrapper>
       </div>
     </section>
   );
