@@ -1,6 +1,5 @@
 // import Image from "next/image";
 // import { Technologies } from "./technologies";
-import { Github, LinkedinIcon } from "lucide-react";
 import { Separator } from "./ui";
 import Link from "next/link";
 import Image from "next/image";
