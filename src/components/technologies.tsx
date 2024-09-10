@@ -22,7 +22,7 @@ export const Technologies = () => {
             icon="react"
             height={60}
             width={60}
-            className="hover:animate-spin-slow"
+            // className="hover:animate-spin"
           />
         </TooltipWrapper>
 
