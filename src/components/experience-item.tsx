@@ -21,7 +21,7 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
       <div className="lg:grid lg:grid-cols-4">
         <div className="col-start-2 col-span-3 lg:pl-2">
           <Separator className="my-2" />
-          <p className="leading-5">{experience.description}</p>
+          <p className="leading-5 py-1">{experience.description}</p>
           <div className="flex flex-wrap mt-1 ">
             {experience.skills.map((skill) => {
               return (
