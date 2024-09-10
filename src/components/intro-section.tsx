@@ -23,7 +23,7 @@ export const IntroSection = () => {
         backend APIs.
       </p>
 
-      <div className="mt-auto pb-14 flex gap-x-8 pt-5 md:pt-0">
+      <div className="md:mt-auto pb-5 md:pb-14 flex gap-x-8  md:pt-0">
         <Link
           href="https://github.com/edu8591"
           className="hover:cursor-pointer"
@@ -34,6 +34,7 @@ export const IntroSection = () => {
             width={50}
             height={50}
             alt="github icon"
+            className="w-14 h-14 sm:w-8 sm:h-8"
           />
         </Link>
         <Link
@@ -46,6 +47,7 @@ export const IntroSection = () => {
             width={50}
             height={50}
             alt="linkedin icon"
+            className="w-14 h-14 sm:w-8 sm:h-8"
           />
         </Link>
       </div>
