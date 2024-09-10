@@ -3,6 +3,7 @@
 import { Github, LinkedinIcon } from "lucide-react";
 import { Separator } from "./ui";
 import Link from "next/link";
+import Image from "next/image";
 
 export const IntroSection = () => {
   return (
@@ -23,20 +24,30 @@ export const IntroSection = () => {
         backend APIs.
       </p>
 
-      <div className="mt-auto pb-14 flex gap-x-4 pt-5 md:pt-0">
+      <div className="mt-auto pb-14 flex gap-x-8 pt-5 md:pt-0">
         <Link
           href="https://github.com/edu8591"
           className="hover:cursor-pointer"
           target="_blank"
         >
-          <Github size={24} />
+          <Image
+            src="/icons/github.svg"
+            width={50}
+            height={50}
+            alt="github icon"
+          />
         </Link>
         <Link
           href="https://www.linkedin.com/in/edo-desu/"
           className="hover:cursor-pointer"
           target="_blank"
         >
-          <LinkedinIcon size={24} />
+          <Image
+            src="/icons/linkedin.svg"
+            width={50}
+            height={50}
+            alt="linkedin icon"
+          />
         </Link>
       </div>
     </div>
