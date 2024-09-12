@@ -1,8 +1,20 @@
-import { Title } from "./title";
+"use client";
 
+import { motion } from "framer-motion";
+import { Title } from "./title";
 export const AboutMe = () => {
   return (
-    <section className="mb-16">
+    <motion.section
+      className="mb-16"
+      variants={{
+        initial: { opacity: 0 },
+        onView: { opacity: 1 },
+      }}
+      initial="initial"
+      whileInView={"onView"}
+      transition={{ duration: 0.6, ease: "easeIn" }}
+      viewport={{ once: true }}
+    >
       <Title>About me</Title>
 
       <div className="flex flex-col gap-y-5">
@@ -30,6 +42,6 @@ export const AboutMe = () => {
           scuba diving whenever I get the chance.
         </p>
       </div>
-    </section>
+    </motion.section>
   );
 };
