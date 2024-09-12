@@ -7,3 +7,5 @@ export * from "./about-me";
 export * from "./grayscale-image";
 export * from "./theme-provider";
 export * from "./title";
+export * from "./projects";
+export * from "./experience";
