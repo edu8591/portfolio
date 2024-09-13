@@ -12,7 +12,7 @@ export const Technologies = () => {
       <Title>Technologies</Title>
 
       <motion.div
-        className="grid grid-cols-3 gap-x-12 gap-y-4 md:grid-cols-4 md:gap-x-8 lg:grid-cols-5  lg:gap-6 place-items-center"
+        className="grid grid-cols-3 gap-x-12 gap-y-4 md:grid-cols-4 md:gap-x-8 lg:grid-cols-5  lg:gap-6 place-items-center border"
         variants={{
           visible: { transition: { staggerChildren: 0.2 } },
           hidden: {},
