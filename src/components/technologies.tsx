@@ -6,10 +6,14 @@ import { GrayscaleImage } from "./grayscale-image";
 import { Title } from "./title";
 import { motion } from "framer-motion";
 import { AnimateEntryIcon } from "./animate-entry-icon";
+import { useTranslations } from "next-intl";
+
 export const Technologies = () => {
+  const t = useTranslations("technologies");
+
   return (
     <section className="mb-16">
-      <Title>Technologies</Title>
+      <Title>{t("title")}</Title>
 
       <motion.div
         className="grid grid-cols-3 gap-x-12 gap-y-4 md:grid-cols-4 md:gap-x-8 lg:grid-cols-5  lg:gap-6 place-items-center"

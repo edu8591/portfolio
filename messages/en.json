@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "title": "Eduardo Serrano Portfolio",
+    "description": "Welcome to Eduardo Serrano’s portfolio! As a passionate fullstack web development, Focused on applying core technologies such as Ruby on Rails, React, and Next.js for front-end development, alongside backend solutions using Node.js and NestJS."
+  },
+  "introSection": {
+    "name": "Eduardo Serrano",
+    "title": "Fullstack Web Developer",
+    "description": "Building responsive full-stack REST web applications and performant backend APIs."
+  },
+  "aboutMeSection": {
+    "title": "About Me",
+    "parragraphFirst": "In 2020, while working from home during the pandemic, I discovered web development through YouTube videos and instantly became captivated. What started as curiosity quickly turned into a passion. By 2021, I knew I wanted to turn this passion into a career. I enrolled in a 380-hour bootcamp by , where I immersed myself in the world of web development, mastering full-stack app creation with Ruby on Rails and finding my true calling in tech.",
+    "parragraphSecond": "Lately, I’ve been focused on implementing best practices in my workplace, developing tailored solutions with the right technologies for each client. I’m constantly improving existing projects while staying committed to learning new tools and methodologies to sharpen my skills as a developer.",
+    "parragraphThird": "In my free time, I enjoy playing video games, play with my dogs, watching crime series on Netflix, and exploring new technologies—right now, I'm diving into game development with Unity. I also love scuba diving whenever I get the chance."
+  },
+  "workExperience": {
+    "title": "Work Experience",
+    "experience": {
+      "Orbis Corp SA": {
+        "period": "03/2023 — Present",
+        "role": "Full Stack Web Developer",
+        "description": "Build and maintain current project, refactor reactjs and nextjs applications for better readability migrate PHP backend into Nestjs fixing existing issues. Developing and planning of a secure election solution system for a foreign country, designed database, data structure, implemented API with Ruby on Rails and frontend with Nextjs."
+      },
+      "Kikoya": {
+        "period": "07 — 10/2022",
+        "role": "Trainee Ruby on Rails Developer",
+        "description": "I worked with customer support to fix bugs, creating tests for each fix or feature. I helped other trainees solve challenges and bridged communication between clients and the development team by simplifying technical issues for better understanding."
+      },
+      "Le Wagon": {
+        "period": "02 — 10/2022",
+        "role": "Web Development Teacher Assistant",
+        "description": "I tailored classes for a diverse group of students, adjusting the content to fit their needs. I regularly reviewed their progress and provided detailed feedback on how they were doing. For students who needed extra help, I mentored them and kept a close eye on their progress to make sure they stayed on track and reached their goals."
+      },
+      "Dellomondo SA": {
+        "period": "2015 — 07/2021",
+        "role": "Operations Manager",
+        "description": "Managed inventory and built strong relationships with suppliers to secure deals and purchase stock efficiently, avoiding excess inventory costs. I oversaw customs, imports, and logistics, handling both international and domestic freight. Additionally, I led the sales team and store staff, resolving client issues in a way that benefited both the company and customers."
+      }
+    }
+  },
+  "technologies": {
+    "title": "Technologies"
+  },
+  "projects": {
+    "title": "Projects",
+    "Duolingo Clone - Lingo": {
+      "description": "Duolingo clone website build with Next.js,Tailwindcss, Neon for database, Clerkjs for auth and stripe for payments processing. Admin dashboard to create new courses and lessons"
+    },
+    "Omnifoods": {
+      "description": "Landing page for a food delivery service built with HTML, CSS, and JavaScript. Made to learn more about CSS and positionig elements with grid and flexbox also to learn about responsive design"
+    },
+    "POW checkout page": {
+      "description": "Made a responsive checkout page with HTML, CSS and Javascript, used bootstrap to position elements and make the page responsive"
+    }
+  }
+}
