@@ -9,3 +9,4 @@ export * from "./theme-provider";
 export * from "./title";
 export * from "./projects";
 export * from "./experience";
+export * from "./motion-card";

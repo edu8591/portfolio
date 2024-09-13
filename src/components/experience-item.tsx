@@ -1,13 +1,15 @@
-import { Experience } from "@/types/experience";
-import { Badge, Card, Separator } from "./ui";
+"use client";
 
+import { Experience } from "@/types/experience";
+import { Badge, Separator } from "./ui";
+import { MotionCard } from "./motion-card";
 type ExperienceItemProps = {
   experience: Experience;
 };
 
 export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   return (
-    <Card className="px-5 py-2 lg:px-2 md:hover:scale-102 shadow-md md:hover:shadow-lg transition-transform duration-150 ">
+    <MotionCard>
       <div className="flex flex-row-reverse justify-between items-center lg:grid lg:grid-cols-4 lg:items-start">
         <p className="text-muted-foreground text-sm md:pt-1">
           {experience.date}
@@ -37,6 +39,6 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           </div>
         </div>
       </div>
-    </Card>
+    </MotionCard>
   );
 };
