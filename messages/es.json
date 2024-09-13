@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "title": "Portafolio de Eduardo Serrano",
+    "description": "¡Bienvenido al portafolio de Eduardo Serrano! Como un apasionado del desarrollo web fullstack, enfocado en aplicar tecnologías clave como Ruby on Rails, React y Next.js para el desarrollo front-end, junto con soluciones backend utilizando Node.js y NestJS."
+  },
+  "introSection": {
+    "name": "Eduardo Serrano",
+    "title": "Desarrollador Web Fullstack",
+    "description": "Construyendo aplicaciones web full-stack responsivas y APIs backend de alto rendimiento."
+  },
+  "aboutMeSection": {
+    "title": "Acerca Mí",
+    "parragraphFirst": "En 2020, mientras trabajaba desde casa durante la pandemia, descubrí el desarrollo web a través de videos de YouTube y quedé instantáneamente cautivado. Lo que comenzó como una curiosidad rápidamente se convirtió en una pasión. Para 2021, sabía que quería convertir esta pasión en una carrera. Me inscribí en un bootcamp de 380 horas, donde me sumergí en el mundo del desarrollo web, dominando la creación de aplicaciones full-stack con Ruby on Rails y encontrando mi verdadera vocación en la tecnología.",
+    "parragraphSecond": "Últimamente, me he enfocado en implementar las mejores prácticas en mi lugar de trabajo, desarrollando soluciones personalizadas con las tecnologías adecuadas para cada cliente. Estoy en constante mejora de proyectos existentes, mientras sigo comprometido con aprender nuevas herramientas y metodologías para perfeccionar mis habilidades como desarrollador.",
+    "parragraphThird": "En mi tiempo libre, disfruto jugando videojuegos, jugando con mis perros, viendo series de crímenes en Netflix y explorando nuevas tecnologías. En este momento, estoy adentrándome en el desarrollo de videojuegos con Unity. También me encanta el buceo cuando tengo la oportunidad."
+  },
+  "workExperience": {
+    "title": "Experiencia Laboral",
+    "experience": {
+      "Orbis Corp SA": {
+        "period": "03/2023 — Presente",
+        "role": "Desarrollador Web Full Stack",
+        "description": "Construyo y mantengo proyectos actuales, refactorizo aplicaciones de React.js y Next.js para mejorar la legibilidad y migro el backend de PHP a NestJS, solucionando problemas existentes. Desarrollo y planificación de un sistema de soluciones electorales seguras para un país extranjero, diseñé la base de datos y la estructura de datos, implementé la API con Ruby on Rails y el frontend con Next.js."
+      },
+      "Kikoya": {
+        "period": "07 — 10/2022",
+        "role": "Desarrollador en formación de Ruby on Rails",
+        "description": "Trabajé con el equipo de soporte al cliente para corregir errores y creé pruebas para cada corrección o nueva funcionalidad. Ayudé a otros desarrolladores en formación a resolver desafíos y facilité la comunicación entre los clientes y el equipo de desarrollo al simplificar problemas técnicos para su mejor comprensión."
+      },
+      "Le Wagon": {
+        "period": "02 — 10/2022",
+        "role": "Asistente de Profesor en Desarrollo Web",
+        "description": "Personalicé clases para un grupo diverso de estudiantes, ajustando el contenido según sus necesidades. Revisé su progreso regularmente y proporcioné comentarios detallados sobre su desempeño. Para los estudiantes que necesitaban ayuda adicional, los mentoreé y realicé un seguimiento cercano para asegurarme de que se mantuvieran en el buen camino y alcanzaran sus objetivos."
+      },
+      "Dellomondo SA": {
+        "period": "2015 — 07/2021",
+        "role": "Gerente de Operaciones",
+        "description": "Gestioné el inventario y construí sólidas relaciones con proveedores para asegurar tratos y adquirir stock de manera eficiente, evitando costos de exceso de inventario. Supervisé las aduanas, importaciones y logística, manejando tanto el transporte internacional como el doméstico. Además, lideré el equipo de ventas y el personal de la tienda, resolviendo problemas de clientes de una manera que beneficiara tanto a la empresa como a los clientes."
+      }
+    }
+  },
+  "technologies": {
+    "title": "Tecnologías"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "Duolingo Clone - Lingo": {
+      "description": "Clon del sitio web de Duolingo construido con Next.js, Tailwindcss, Neon para la base de datos, Clerkjs para la autenticación y Stripe para el procesamiento de pagos. Panel de administración para crear nuevos cursos y lecciones."
+    },
+    "Omnifoods": {
+      "description": "Página de aterrizaje para un servicio de entrega de alimentos construida con HTML, CSS y JavaScript. Hecha para aprender más sobre CSS y posicionamiento de elementos con grid y flexbox, además de aprender sobre diseño responsive."
+    },
+    "POW checkout page": {
+      "description": "Página de pago responsive hecha con HTML, CSS y Javascript, utilicé Bootstrap para posicionar los elementos y hacer la página responsive."
+    }
+  }
+}
