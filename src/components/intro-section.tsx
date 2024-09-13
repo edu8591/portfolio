@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export const IntroSection = () => {
   return (
-    <div className="h-full md:sticky flex flex-col gap-y-5 items-center">
+    <div className="h-full md:sticky flex flex-col gap-y-5 items-center md:col-span-2">
       {/* <Image
         src="/images/profile.jpg"
         alt="Profile image"
