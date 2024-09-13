@@ -1,12 +1,6 @@
-// "use client";
-import { InfoSection, IntroSection } from "@/components";
-// import { useEffect, useRef } from "react";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <main className="grid md:grid-cols-5 h-screen max-w-[1080px] mx-auto pt-5">
-      <IntroSection />
-      <InfoSection />
-    </main>
-  );
+// This page only renders when the app is built statically (output: 'export')
+export default function RootPage() {
+  redirect("/en");
 }
