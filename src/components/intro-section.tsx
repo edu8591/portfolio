@@ -3,8 +3,13 @@
 import { Separator } from "./ui";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export const IntroSection = () => {
+  // unstable_setRequestLocale(locale);
+
+  const t = useTranslations("introSection");
+
   return (
     <div className="h-full md:sticky flex flex-col gap-y-5 items-center md:col-span-2">
       {/* <Image
@@ -14,15 +19,12 @@ export const IntroSection = () => {
         height={200}
       /> */}
       <h1 className=" text-4xl md:text-5xl font-bold sm:text-center md:mt-10 tracking-wide">
-        Eduardo Serrano
+        {t("name")}
       </h1>
-      <h2 className="text-xl font-semibold">Full Stack Web Developer</h2>
+      <h2 className="text-xl font-semibold">{t("title")}</h2>
 
       <Separator className="my-4 w-3/4" />
-      <p className="w-3/4">
-        Building responsive full-stack REST web applications and performant
-        backend APIs.
-      </p>
+      <p className="w-3/4">{t("description")}</p>
 
       <div className="md:mt-auto pb-5 md:pb-14 flex gap-x-8  md:pt-0">
         <Link
