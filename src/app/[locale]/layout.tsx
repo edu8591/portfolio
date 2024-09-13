@@ -1,12 +1,19 @@
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, unstable_setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  getTranslations,
+  unstable_setRequestLocale,
+} from "next-intl/server";
 
-// import type { Metadata } from "next";
 import "../globals.css";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@/components";
 import { routing } from "@/i18n/routing";
-import { Metadata } from "next";
+
+type Props = {
+  children: React.ReactNode;
+  params: { locale: string };
+};
 
 const roboto = Roboto({
   weight: "400",
@@ -17,21 +24,27 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: "Eduardo Serrano Portfolio",
-  description:
-    "Welcome to Eduardo Serrano’s portfolio! As a passionate fullstack web development, Focused on applying core technologies such as Ruby on Rails, React, and Next.js for front-end development, alongside backend solutions using Node.js and NestJS.",
-  authors: [{ name: "Eduardo Serrano" }],
-  keywords: [
-    "fullstack web developer",
-    "React",
-    "Next.js",
-    "Node.js",
-    "Ruby on Rails",
-    "web development portfolio",
-    "Eduardo Serrano",
-  ],
-};
+export async function generateMetadata({
+  params: { locale },
+}: Omit<Props, "children">) {
+  const t = await getTranslations({ locale, namespace: "metadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    authors: [{ name: "Eduardo Serrano" }],
+    keywords: [
+      "fullstack web developer",
+      "React",
+      "Next.js",
+      "Node.js",
+      "Ruby on Rails",
+      "web development portfolio",
+      "Eduardo Serrano",
+    ],
+    creator: "Eduardo Serrano",
+  };
+}
 
 export default async function LocaleLayout({
   children,
