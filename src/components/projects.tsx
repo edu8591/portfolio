@@ -1,12 +1,12 @@
 import { projects } from "@/constants/projects";
 import { Title } from "./title";
-import { Card } from "./ui";
 import Image from "next/image";
+import { MotionCard } from "./motion-card";
 
 export const Projects = () => {
   const renderedProjects = projects.map((project) => {
     return (
-      <Card key={project.name} className="my-3">
+      <MotionCard key={project.name}>
         <div className="lg:flex p-4">
           <div className="relative w-full aspect-video lg:h-28 lg:w-48 border-2 rounded-md overflow-hidden flex-shrink-0">
             <Image src={project.src} fill alt={`${project.name} preview`} />
@@ -16,15 +16,14 @@ export const Projects = () => {
             <p>{project.description}</p>
           </div>
         </div>
-      </Card>
+      </MotionCard>
     );
   });
 
   return (
     <section className="mb-16">
       <Title>Projects</Title>
-
-      {renderedProjects}
+      <div className="flex flex-col gap-y-6">{renderedProjects}</div>
     </section>
   );
 };
