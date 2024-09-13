@@ -43,12 +43,3 @@ export const experiences: Experience[] = [
     skills: ["Excell", "Incoterms", "Logistics", "Supply Chain"],
   },
 ];
-
-// {
-//     date: "03/2023 — Present",
-//     company: "Orbis Corp S.A.",
-//     role: "Full Stack Web Developer",
-//     description:
-//       "Build and maintain current project, refactor reactjs and nextjs applications implementing redix to maintain state and fix prop drilling reorganizing components for better readability migrate PHP backend into Nestjs implementing JWT for a more secureauthentication system. Led the developing and planning of a secure election solution system for a foreign country, designed database, data structure, implemented API with Ruby on Rails and frontend with Nextjs.",
-//     skills: ["React.js", "Next.js", "Nest.js", "Ruby on Rails"],
-//   }

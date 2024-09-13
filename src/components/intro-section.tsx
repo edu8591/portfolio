@@ -6,8 +6,6 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 export const IntroSection = () => {
-  // unstable_setRequestLocale(locale);
-
   const t = useTranslations("introSection");
 
   return (
