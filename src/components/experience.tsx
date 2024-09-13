@@ -11,7 +11,9 @@ export const Experience = () => {
     <section className="mb-16">
       <Title>Work Experience</Title>
 
-      <div className="flex flex-col gap-y-6">{renderedExperiences}</div>
+      <div className="flex flex-col gap-y-6 overflow-hidden p-2">
+        {renderedExperiences}
+      </div>
     </section>
   );
 };
