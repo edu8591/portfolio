@@ -12,7 +12,7 @@ export const Technologies = () => {
   const t = useTranslations("technologies");
 
   return (
-    <section className="mb-16">
+    <section className="mb-16 md:mb-32" id="technologies">
       <Title>{t("title")}</Title>
 
       <motion.div

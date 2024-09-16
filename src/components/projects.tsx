@@ -27,7 +27,7 @@ export const Projects = () => {
   });
 
   return (
-    <section className="mb-16">
+    <section className="mb-16 md:mb-32" id="projects">
       <Title>{t("title")}</Title>
       <div className="flex flex-col gap-y-6 overflow-hidden p-2">
         {renderedProjects}
