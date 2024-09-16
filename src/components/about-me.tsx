@@ -9,7 +9,8 @@ export const AboutMe = () => {
 
   return (
     <motion.section
-      className="mb-16"
+      id="about-me"
+      className="mb-16 md:mb-32"
       variants={{
         initial: { opacity: 0 },
         onView: { opacity: 1 },
