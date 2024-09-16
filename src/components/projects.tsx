@@ -4,27 +4,36 @@ import Image from "next/image";
 import { MotionCard } from "./motion-card";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 
 export const Projects = () => {
   const t = useTranslations("projects");
 
-  const renderedProjects = projects.map((project) => {
-    return (
-      <MotionCard key={project.name}>
-        <Link href={project.url} target="_blank">
-          <div className="lg:flex p-4">
-            <div className="relative w-full aspect-video lg:h-28 lg:w-48 border-2 rounded-md overflow-hidden flex-shrink-0">
-              <Image src={project.src} fill alt={`${project.name} preview`} />
-            </div>
-            <div className="pl-2 mt-3 lg:mt-0">
-              <h3 className="text-lg font-bold pb-2">{project.name}</h3>
-              <p>{t(`${project.name}.description`)}</p>
-            </div>
-          </div>
-        </Link>
-      </MotionCard>
-    );
-  });
+  const renderedProjects = useMemo(
+    () =>
+      projects.map((project) => {
+        return (
+          <MotionCard key={project.name}>
+            <Link href={project.url} target="_blank">
+              <div className="lg:flex p-4">
+                <div className="relative w-full aspect-video lg:h-28 lg:w-48 border-2 rounded-md overflow-hidden flex-shrink-0">
+                  <Image
+                    src={project.src}
+                    fill
+                    alt={`${project.name} preview`}
+                  />
+                </div>
+                <div className="pl-2 mt-3 lg:mt-0">
+                  <h3 className="text-lg font-bold pb-2">{project.name}</h3>
+                  <p>{t(`${project.name}.description`)}</p>
+                </div>
+              </div>
+            </Link>
+          </MotionCard>
+        );
+      }),
+    [t]
+  );
 
   return (
     <section className="mb-16 md:mb-32" id="projects">
