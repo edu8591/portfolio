@@ -10,7 +10,7 @@ export default function Home({ params: { locale } }: HomePageProps) {
   unstable_setRequestLocale(locale);
 
   return (
-    <main className="grid md:grid-cols-5 h-screen max-w-[1080px] mx-auto pt-5">
+    <main className="grid md:grid-cols-5 gap-x-10 h-screen max-w-[1180px] mx-auto">
       <IntroSection />
       <InfoSection />
     </main>

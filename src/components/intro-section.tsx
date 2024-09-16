@@ -4,12 +4,13 @@ import { Separator } from "./ui";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { NavLinks } from "./nav-links";
 
 export const IntroSection = () => {
   const t = useTranslations("introSection");
 
   return (
-    <div className="h-full md:sticky flex flex-col gap-y-5 items-center md:col-span-2">
+    <div className="h-full md:sticky flex flex-col gap-y-5 items-center md:col-span-2 pt-20">
       {/* <Image
         src="/images/profile.jpg"
         alt="Profile image"
@@ -24,6 +25,8 @@ export const IntroSection = () => {
       <Separator className="my-4 w-3/4" />
       <p className="w-3/4">{t("description")}</p>
 
+      <NavLinks />
+      {/* Links */}
       <div className="md:mt-auto pb-5 md:pb-14 flex gap-x-8  md:pt-0">
         <Link
           href="https://github.com/edu8591"
