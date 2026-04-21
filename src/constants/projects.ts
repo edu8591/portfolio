@@ -2,23 +2,24 @@ import { Project } from "@/types/project";
 
 export const projects: Project[] = [
   {
-    name: "silas",
-    src: "/images/silas.webp",
-    url: "https://www.silasinsurtech.com",
-  },
-  {
-    name: "duolingoClone",
-    src: "/images/lingo.webp",
+    name: "Duolingo Clone - Lingo",
+    src: "/images/lingo.png",
+    description:
+      "Duolingo clone website build with Next.js,Tailwindcss, Neon for database, Clerkjs for auth and stripe for payments processing. Admin dashboard to create new courses and lessons",
     url: "https://next14duolingo-clone.vercel.app/",
   },
   {
-    name: "omnifoods",
-    src: "/images/omnifoods.webp",
+    name: "Omnifoods",
+    src: "/images/omnifoods.png",
+    description:
+      "Landing page for a food delivery service built with HTML, CSS, and JavaScript. Made to learn more about CSS and positionig elements with grid and flexbox also to learn about responsive design",
     url: "https://omnifoods-project.netlify.app",
   },
   {
-    name: "checkoutPage",
-    src: "/images/POW.webp",
+    name: "POW checkout page",
+    src: "/images/POW.png",
+    description:
+      "Made a responsive checkout page with HTML, CSS and Javascript, used bootstrap to position elements and make the page responsive",
     url: "https://proyecto-pow.netlify.app",
   },
 ];

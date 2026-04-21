@@ -17,57 +17,25 @@
   "workExperience": {
     "title": "Experiencia Laboral",
     "experience": {
-      "silas": {
-        "companyName": "Silas Insurtech",
-        "period": "10/2024 - Presente",
-        "role": "Líder Desarrollador Front End / Director de Producto",
-        "description": "Construí la arquitectura frontend desde cero para una plataforma de suscripción de seguros impulsada por IA, participando en el diseño del producto desde el día uno — desde definir la estructura del sistema hasta traducir la visión del fundador en características completamente funcionales orientadas al usuario. Poseo el ciclo completo de desarrollo desde la especificación de diseño hasta el despliegue en producción usando Next.js, TypeScript, Tailwind CSS y ShadCN. Lideré un equipo de desarrolladores frontend definiendo tareas de sprint, estableciendo cronogramas de entrega y realizando revisiones de código para mantener calidad y consistencia. Colaboré directamente con el equipo backend para diseñar e implementar integraciones de API, asegurando una comunicación frontend/backend sin fricciones.",
-        "skills": [
-          "React.js",
-          "Next.js",
-          "Tailwind Css",
-          "API Integration",
-          "Team Leadership",
-          "Project Management",
-          "Product Design"
-        ]
-      },
-      "orbis": {
-        "companyName": "Orbis Corp SA",
-        "period": "03/2023 — 10/2024",
+      "Orbis Corp SA": {
+        "period": "03/2023 — Presente",
         "role": "Desarrollador Web Full Stack",
-        "description": "Trabajé en toda la pila para modernizar y estabilizar sistemas existentes mientras también entregaba nuevos productos desde cero. Tomé una aplicación heredada de seguimiento energético React.js y la llevé a estándares mantenibles, luego pasé al backend para arreglar una migración Nest.js rota. Más allá del trabajo de mantenimiento, lideré el desarrollo completo de un sistema nacional seguro de elecciones para un país extranjero, manejando todo desde diseño de base de datos hasta enviar el frontend en producción.",
-        "skills": ["React.js", "Next.js", "Nest.js", "Ruby on Rails"]
+        "description": "Construyo y mantengo aplicaciones en producción mientras refactorizo bases de código de React y Next.js para mejorar la mantenibilidad. Liderando la migración de backends de PHP a NestJS y resolviendo problemas arquitectónicos. Diseñando e implementando un sistema seguro de gestión electoral, incluyendo arquitectura de base de datos, implementación de API en Ruby on Rails y desarrollo frontend con Next.js."
       },
-      "kikoya": {
-        "companyName": "Kikoya",
+      "Kikoya": {
         "period": "07 — 10/2022",
         "role": "Desarrollador en Formación de Ruby on Rails",
-        "description": "Trabajé estrechamente con soporte al cliente para rastrear y corregir errores en la base de código de Rails, incluyendo un problema de análisis XML que había estado bloqueando un flujo de trabajo crítico. Actué como el puente técnico entre los equipos de servicio al cliente e ingeniería, traduciendo problemas reportados en soluciones accionables y acelerando la resolución de problemas en toda la junta.",
-        "skills": ["Ruby on Rails", "PostgreSQL", "RSpec", "CoffeeScript"]
+        "description": "Colaboré con equipos de soporte al cliente para identificar y resolver errores, implementando pruebas integrales para cada corrección y funcionalidad. Mentoricé a colegas en formación a través de desafíos técnicos y facilité la comunicación clara entre clientes y equipos de desarrollo."
       },
-      "leWagon": {
-        "companyName": "Le Wagon",
+      "Le Wagon": {
         "period": "02 — 10/2022",
         "role": "Asistente de Profesor en Desarrollo Web",
-        "description": "Preparé y dicté clases para una cohorte diversa de estudiantes de bootcamp, adaptando contenido sobre la marcha para abordar puntos de dolor comunes. Mentoricé a estudiantes que necesitaban apoyo adicional, manteniendo un seguimiento cercano de su progreso individual para asegurar que todos cruzaran la meta.",
-        "skills": [
-          "Ruby on Rails",
-          "Javascript",
-          "HTML",
-          "CSS",
-          "Bootstrap",
-          "Heroku",
-          "Git",
-          "Linux"
-        ]
+        "description": "Proporcioné instrucción personalizada a cohortes diversas, adaptando contenido para satisfacer necesidades individuales de aprendizaje. Ofrecí comentarios constructivos, rastreé progreso estudiantil y proporcioné mentoría adicional para apoyar su desarrollo."
       },
-      "dellomondo": {
-        "companyName": "Dellomondo SA",
+      "Dellomondo SA": {
         "period": "2015 — 07/2021",
         "role": "Gerente de Operaciones",
-        "description": "Gestioné operaciones de inventario y cultivé sólidas relaciones con proveedores para optimizar la adquisición y minimizar costos de transporte. Supervisé logística internacional y doméstica, aduanas y gestión de carga. Lideré equipos de ventas y operaciones, resolviendo exitosamente preocupaciones de clientes mientras mantenía rentabilidad.",
-        "skills": ["Excel", "Incoterms", "Logistics", "Supply Chain"]
+        "description": "Gestioné operaciones de inventario y cultivé sólidas relaciones con proveedores para optimizar compras y minimizar costos de inventario. Supervisé logística internacional y doméstica, aduanas y gestión de carga. Lideré equipos de ventas y operaciones, resolviendo exitosamente preocupaciones de clientes mientras mantenía rentabilidad."
       }
     }
   },
@@ -76,21 +44,13 @@
   },
   "projects": {
     "title": "Proyectos Destacados",
-    "view": "Ver Proyecto",
-    "silas": {
-      "projectName": "Plataforma Silas Insurtech",
-      "description": "Una plataforma revolucionaria de suscripción de seguros que aprovecha la IA para optimizar la evaluación de riesgos y la gestión de pólizas. Construida con Next.js, TypeScript, Tailwind CSS y ShadCN, ofrece una experiencia de usuario perfecta mientras proporciona herramientas poderosas para que las aseguradoras optimicen sus operaciones."
-    },
-    "duolingoClone": {
-      "projectName": "Duolingo Clone - Lingo",
+    "Duolingo Clone - Lingo": {
       "description": "Una plataforma completa de aprendizaje de idiomas construida con Next.js, Tailwind CSS y Neon. Integra Clerk para autenticación y Stripe para procesamiento de pagos. Incluye un panel de administración para crear y gestionar cursos y lecciones."
     },
-    "omnifoods": {
-      "projectName": "Omnifoods",
+    "Omnifoods": {
       "description": "Una página de aterrizaje responsiva para un servicio de entrega de alimentos. Construida con HTML, CSS y JavaScript para demostrar competencia con técnicas de diseño moderno incluyendo CSS Grid y Flexbox."
     },
-    "checkoutPage": {
-      "projectName": "Página de Pago POW",
+    "POW checkout page": {
       "description": "Una página de pago de comercio electrónico totalmente responsiva diseñada con HTML, CSS y JavaScript. Utiliza Bootstrap para garantizar estilos consistentes y responsividad óptima en todos los dispositivos."
     }
   },

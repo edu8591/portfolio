@@ -1,6 +1,6 @@
 "use client";
 
-import { companies } from "@/constants/experiences";
+import { experiences } from "@/constants/experiences";
 import { ExperienceItem } from "./experience-item";
 import { Title } from "./title";
 import { useTranslations } from "next-intl";
@@ -28,8 +28,8 @@ export const Experience = () => {
     },
   };
 
-  const renderedExperiences = companies.map((company) => (
-    <ExperienceItem company={company} key={company} />
+  const renderedExperiences = experiences.map((experience) => (
+    <ExperienceItem experience={experience} key={experience.company} />
   ));
 
   return (

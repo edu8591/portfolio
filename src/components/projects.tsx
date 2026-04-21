@@ -40,18 +40,19 @@ export const Projects = () => {
                   sizes="(min-width: 1024px) 224px, 100vw"
                   alt={`${project.name} preview`}
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <div className="mt-4 lg:mt-0 lg:flex-1">
                 <h3 className="text-2xl font-serif font-semibold text-foreground group-hover:text-accent transition-colors duration-300">
-                  {t(`${project.name}.projectName`)}
+                  {project.name}
                 </h3>
                 <p className="text-foreground/75 mt-2 leading-relaxed text-sm md:text-base">
                   {t(`${project.name}.description`)}
                 </p>
                 <div className="mt-4 inline-flex items-center text-accent font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
-                  {t("view")}
+                  View Project
                   <svg
                     className="ml-2 w-4 h-4"
                     fill="none"
