@@ -48,7 +48,7 @@ export const AboutMe = () => {
       </motion.div>
 
       <motion.div
-        className="flex flex-col gap-y-6 space-y-4"
+        className="flex flex-col gap-y-6"
         variants={containerVariants}
       >
         <motion.p
