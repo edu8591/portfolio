@@ -1,14 +1,13 @@
-"use client";
 import { TooltipWrapper } from "./tooltip-wrapper";
 import { GrayscaleImage } from "./grayscale-image";
 import { Title } from "./title";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 import { AnimateEntryIcon } from "./animate-entry-icon";
-import { useTranslations } from "next-intl";
 import { technologiesList } from "@/constants/technologies";
+import { getTranslations } from "next-intl/server";
 
-export const Technologies = () => {
-  const t = useTranslations("technologies");
+export const Technologies = async () => {
+  const t = await getTranslations("technologies");
 
   const titleVariants = {
     hidden: { opacity: 0, y: 10 },

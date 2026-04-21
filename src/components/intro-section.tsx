@@ -1,10 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
-import { motion, type Variants } from "motion/react";
-
+import * as motion from "motion/react-client";
+import { type Variants } from "motion";
+import { getTranslations } from "next-intl/server";
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -25,8 +23,8 @@ const itemVariants: Variants = {
   },
 };
 
-export const IntroSection = () => {
-  const t = useTranslations("introSection");
+export const IntroSection = async () => {
+  const t = await getTranslations("introSection");
 
   return (
     <motion.div

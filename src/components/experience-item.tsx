@@ -1,15 +1,13 @@
-"use client";
-
 import { Badge, Separator } from "./ui";
 import { MotionCard } from "./motion-card";
-import { useTranslations } from "next-intl";
+import { companies } from "@/constants/experiences";
+import { getTranslations } from "next-intl/server";
 
 type ExperienceItemProps = {
-  company: string;
+  company: (typeof companies)[number];
 };
-
-export const ExperienceItem = ({ company }: ExperienceItemProps) => {
-  const t = useTranslations(`workExperience.experience.${company}`);
+export const ExperienceItem = async ({ company }: ExperienceItemProps) => {
+  const t = await getTranslations(`workExperience.experience.${company}`);
 
   return (
     <MotionCard>

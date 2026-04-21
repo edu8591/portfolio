@@ -1,7 +1,7 @@
-export const companies: string[] = [
+export const companies = [
   "silas",
   "orbis",
   "kikoya",
   "leWagon",
   "dellomondo",
-];
+] as const;

@@ -1,10 +1,8 @@
-"use client";
-
 import { companies } from "@/constants/experiences";
 import { ExperienceItem } from "./experience-item";
 import { Title } from "./title";
 import { useTranslations } from "next-intl";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 
 export const Experience = () => {
   const t = useTranslations("workExperience");
