@@ -1,15 +1,13 @@
-"use client";
-
 import { projects } from "@/constants/projects";
 import { Title } from "./title";
 import Image from "next/image";
 import { MotionCard } from "./motion-card";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
+import { getTranslations } from "next-intl/server";
 
-export const Projects = () => {
-  const t = useTranslations("projects");
+export const Projects = async () => {
+  const t = await getTranslations("projects");
 
   const containerVariants = {
     hidden: { opacity: 0 },

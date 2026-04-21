@@ -1,11 +1,9 @@
-"use client";
-
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 import { Title } from "./title";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-export const AboutMe = () => {
-  const t = useTranslations("aboutMeSection");
+export const AboutMe = async () => {
+  const t = await getTranslations("aboutMeSection");
 
   const containerVariants = {
     hidden: { opacity: 0 },
