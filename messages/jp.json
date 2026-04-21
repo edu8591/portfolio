@@ -17,25 +17,57 @@
   "workExperience": {
     "title": "職務経験",
     "experience": {
-      "Orbis Corp SA": {
-        "period": "2023年3月 — 現在",
-        "role": "フルスタックWeb開発者",
-        "description": "本番環境のアプリケーションを構築・保守しながら、ReactおよびNext.jsコードベースをリファクタリングしてメンテナンス性を向上させています。PHPバックエンドのNestJSへの移行と建築上の問題の解決をリードしています。安全な選挙管理システムの設計および実装、データベースアーキテクチャ、Ruby on RailsでのAPI実装、Next.jsでのフロントエンド開発を行っています。"
+      "silas": {
+        "companyName": "Silas Insurtech",
+        "period": "2024年10月 - 現在",
+        "role": "フロントエンドリードデベロッパー / チーフプロダクトオフィサー",
+        "description": "AI駆動の保険引受プラットフォーム向けにフロントエンドアーキテクチャを一から構築し、初日からプロダクト設計に参加しました——システム構造の定義から創業者のビジョンを完全に機能するユーザー向け機能に翻訳するまで。Next.js、TypeScript、Tailwind CSS、ShadCNを使用した設計仕様から本番環境への展開まで、完全な開発サイクルを担当。スプリントタスク定義、納期設定、コード審査実施によってフロントエンド開発チームをリード、品質と一貫性を維持。バックエンドチームと直接協力して、APIインテグレーションを設計・実装し、フロントエンド/バックエンド間のシームレスな通信を確保。",
+        "skills": [
+          "React.js",
+          "Next.js",
+          "Tailwind Css",
+          "API Integration",
+          "Team Leadership",
+          "Project Management",
+          "Product Design"
+        ]
       },
-      "Kikoya": {
+      "orbis": {
+        "companyName": "Orbis Corp SA",
+        "period": "2023年3月 — 2024年10月",
+        "role": "フルスタックWeb開発者",
+        "description": "既存システムの最新化と安定化、新製品ゼロから開発まで、フルスタック全体で作業。レガシーReact.js エネルギー追跡アプリを保守可能な標準に引き上げ、その後バックエンドに移行して壊れたNest.js マイグレーションを修正。保守作業を超えて、外国のための安全な国家選挙システムの完全開発をリード、データベース設計から本番環境でのフロントエンド提供まですべてを処理。",
+        "skills": ["React.js", "Next.js", "Nest.js", "Ruby on Rails"]
+      },
+      "kikoya": {
+        "companyName": "Kikoya",
         "period": "2022年7月 — 10月",
         "role": "Ruby on Railsトレイニー開発者",
-        "description": "カスタマーサポートチームと協力してバグを特定・解決し、各修正と機能に対する包括的なテストを実装しました。トレーニング中の同僚を技術的な課題でメンタリングし、クライアントと開発チーム間の明確なコミュニケーションを促進しました。"
+        "description": "カスタマーサポートチームと緊密に協力してRailsコードベース全体のバグを追跡・修正、重要なワークフローをブロックしていた長年のXML解析問題を含む。カスタマーサービスとエンジニアリングチーム間の技術的橋渡し役として機能し、報告された問題を実行可能な修正に変換し、全体的な問題解決を迅速化。",
+        "skills": ["Ruby on Rails", "PostgreSQL", "RSpec", "CoffeeScript"]
       },
-      "Le Wagon": {
+      "leWagon": {
+        "companyName": "Le Wagon",
         "period": "2022年2月 — 10月",
         "role": "Web開発ティーチングアシスタント",
-        "description": "多様なコホートにパーソナライズされた指導を提供し、個々の学習ニーズに合わせてコンテンツを調整しました。建設的なフィードバックを提供し、学生の進捗を追跡し、彼らの開発をサポートするための追加メンタリングを提供しました。"
+        "description": "多様なコーホートのブートキャンプ学生向けにクラスを準備・実施、共通の課題に対処するため その場でコンテンツを調整。追加支援が必要な学生にメンタリング、個別の進捗を厳密に追跡し、全員がゴールインできるように確保。",
+        "skills": [
+          "Ruby on Rails",
+          "Javascript",
+          "HTML",
+          "CSS",
+          "Bootstrap",
+          "Heroku",
+          "Git",
+          "Linux"
+        ]
       },
-      "Dellomondo SA": {
+      "dellomondo": {
+        "companyName": "Dellomondo SA",
         "period": "2015年 — 2021年7月",
         "role": "オペレーションマネージャー",
-        "description": "在庫運用を管理し、サプライヤーとの強固な関係を培養して調達を最適化し、在庫保持コストを最小化しました。国際および国内物流、関税及び貨物管理を監督しました。営業チームと運用チームをリードし、顧客の懸念事項を成功裏に解決しながら利益性を維持しました。"
+        "description": "在庫運用を管理し、サプライヤーとの強固な関係を培養して調達を最適化し、運搬コストを最小化。国際および国内物流、関税及び貨物管理を監督。営業チームと運用チームをリード、顧客の懸念事項を成功裏に解決しながら利益性を維持。",
+        "skills": ["Excell", "Incoterms", "Logistics", "Supply Chain"]
       }
     }
   },
@@ -44,13 +76,21 @@
   },
   "projects": {
     "title": "注目プロジェクト",
-    "Duolingo Clone - Lingo": {
+    "view": "プロジェクトを表示",
+    "silas": {
+      "projectName": "Silas Insurtech プラットフォーム",
+      "description": "AIを活用した革新的な保険引受プラットフォーム。リスク評価とポリシー管理を効率化します。Next.js、TypeScript、Tailwind CSS、ShadCNで構築、シームレスなユーザー体験を提供しながら、保険業者が運営を最適化するための強力なツールを提供。"
+    },
+    "duolingoClone": {
+      "projectName": "Duolingo Clone - Lingo",
       "description": "Next.js、Tailwind CSS、およびNeonで構築された本格的な言語学習プラットフォーム。認証にClerkを統合し、決済処理にStripeを使用。コースとレッスンを作成・管理するための管理ダッシュボードを備えています。"
     },
-    "Omnifoods": {
+    "omnifoods": {
+      "projectName": "Omnifoods",
       "description": "フードデリバリーサービス向けのレスポンシブランディングページ。HTML、CSS、およびJavaScriptで構築され、CSS GridおよびFlexboxを含む最新のレイアウト技術の習熟度を実証しています。"
     },
-    "POW checkout page": {
+    "checkoutPage": {
+      "projectName": "POW チェックアウトページ",
       "description": "HTML、CSS、およびJavaScriptで設計された完全なレスポンシブなeコマースチェックアウトページ。Bootstrapを使用して、すべてのデバイスで一貫したスタイリングと最適なレスポンシブネスを実現しています。"
     }
   },
