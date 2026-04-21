@@ -2,7 +2,7 @@
 import { TooltipWrapper } from "./tooltip-wrapper";
 import { GrayscaleImage } from "./grayscale-image";
 import { Title } from "./title";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { AnimateEntryIcon } from "./animate-entry-icon";
 import { useTranslations } from "next-intl";
 import { technologiesList } from "@/constants/technologies";

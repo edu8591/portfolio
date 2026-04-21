@@ -11,18 +11,18 @@
   .serif-display {
     position: relative;
     display: inline-block;
-    background: linear-gradient(90deg, #d4af37 0%, #d4af37 100%);
+    /* background: linear-gradient(90deg, #d4af37 0%, #d4af37 100%); */
     background-size: 100% 2px;
     background-position: left bottom;
     background-repeat: no-repeat;
     padding-bottom: 4px;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--accent)) 0%,
+      hsl(var(--accent)) 100%
+    );
   }
 }
-background: linear-gradient(
-  90deg,
-  hsl(var(--accent)) 0%,
-  hsl(var(--accent)) 100%
-);
 @layer base {
   /* :root {
     --background: 0 0% 100%;

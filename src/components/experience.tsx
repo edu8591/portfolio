@@ -4,7 +4,7 @@ import { experiences } from "@/constants/experiences";
 import { ExperienceItem } from "./experience-item";
 import { Title } from "./title";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export const Experience = () => {
   const t = useTranslations("workExperience");

@@ -1,18 +1,15 @@
-import { NextIntlClientProvider } from "next-intl";
-import {
-  getMessages,
-  getTranslations,
-  unstable_setRequestLocale,
-} from "next-intl/server";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
 
 import "../globals.css";
 import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import { ThemeProvider } from "@/components";
-import { routing } from "@/i18n/routing";
+import { getMessages, getTranslations } from "next-intl/server";
 
 type Props = {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -31,9 +28,11 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params: { locale },
-}: Omit<Props, "children">) {
+export async function generateMetadata(props: Omit<Props, "children">) {
+  const params = await props.params;
+
+  const { locale } = params;
+
   const t = await getTranslations({ locale, namespace: "metadata" });
 
   return {
@@ -53,22 +52,22 @@ export async function generateMetadata({
   };
 }
 
-export default async function LocaleLayout({
-  children,
-  params: { locale },
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
-}) {
-  unstable_setRequestLocale(locale);
+export default async function LocaleLayout({ children, params }: Props) {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className={`${plusJakartaSans.variable} ${playfairDisplay.variable} antialiased`}>
+    <html lang={locale} suppressHydrationWarning>
+      <body
+        className={`${plusJakartaSans.variable} ${playfairDisplay.variable} antialiased`}
+      >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider
             attribute="class"

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme, systemTheme } = useTheme();

@@ -3,30 +3,30 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "motion/react";
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
 
 export const IntroSection = () => {
   const t = useTranslations("introSection");
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
 
   return (
     <motion.div
@@ -65,7 +65,7 @@ export const IntroSection = () => {
         >
           <Link
             href="https://github.com/edu8591"
-            className="hover:cursor-pointer relative w-9 h-9 sm:w-10 sm:h-10 lg:w-11 lg:h-11 transition-all duration-300"
+            className="block hover:cursor-pointer relative w-9 h-9 sm:w-10 sm:h-10 lg:w-11 lg:h-11 transition-all duration-300"
             target="_blank"
           >
             <Image
@@ -82,7 +82,7 @@ export const IntroSection = () => {
         >
           <Link
             href="https://www.linkedin.com/in/edo-desu/"
-            className="hover:cursor-pointer relative w-9 h-9 sm:w-10 sm:h-10 lg:w-11 lg:h-11 transition-all duration-300"
+            className="block hover:cursor-pointer relative w-9 h-9 sm:w-10 sm:h-10 lg:w-11 lg:h-11 transition-all duration-300"
             target="_blank"
           >
             <Image
