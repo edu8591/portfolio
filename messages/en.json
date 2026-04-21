@@ -1,18 +1,18 @@
 {
   "metadata": {
-    "title": "Eduardo Serrano Portfolio",
-    "description": "Welcome to Eduardo Serrano’s portfolio! As a passionate fullstack web development, Focused on applying core technologies such as Ruby on Rails, React, and Next.js for front-end development, alongside backend solutions using Node.js and NestJS."
+    "title": "Eduardo Serrano | Fullstack Web Developer",
+    "description": "Fullstack web developer specializing in building scalable applications with React, Next.js, Node.js, and NestJS. Explore my portfolio, projects, and experience."
   },
   "introSection": {
     "name": "Eduardo Serrano",
     "title": "Fullstack Web Developer",
-    "description": "Building responsive full-stack REST web applications and performant backend APIs."
+    "description": "Crafting scalable web applications with modern technologies. Passionate about building user-friendly interfaces and robust backend systems."
   },
   "aboutMeSection": {
     "title": "About Me",
-    "parragraphFirst": "In 2020, while working from home during the pandemic, I discovered web development through YouTube videos and instantly became captivated. What started as curiosity quickly turned into a passion. By 2021, I knew I wanted to turn this passion into a career. I enrolled in a 380-hour bootcamp by , where I immersed myself in the world of web development, mastering full-stack app creation with Ruby on Rails and finding my true calling in tech.",
-    "parragraphSecond": "Lately, I’ve been focused on implementing best practices in my workplace, developing tailored solutions with the right technologies for each client. I’m constantly improving existing projects while staying committed to learning new tools and methodologies to sharpen my skills as a developer.",
-    "parragraphThird": "In my free time, I enjoy playing video games, play with my dogs, watching crime series on Netflix, and exploring new technologies—right now, I'm diving into game development with Unity. I also love scuba diving whenever I get the chance."
+    "parragraphFirst": "In 2020, I discovered web development during the pandemic and became immediately captivated. What began as curiosity transformed into genuine passion. By 2021, I decided to pursue it professionally and enrolled in an intensive 380-hour bootcamp where I mastered full-stack development with Ruby on Rails, launching my career in tech.",
+    "parragraphSecond": "Today, I focus on delivering high-quality, maintainable code by implementing best practices and adopting the right technologies for each project. I’m driven by continuous improvement, staying current with emerging tools and methodologies to enhance my capabilities as a developer.",
+    "parragraphThird": "Beyond work, I’m passionate about gaming, spending time with my dogs, and exploring new technologies. Currently, I’m experimenting with game development using Unity and enjoy scuba diving whenever possible."
   },
   "workExperience": {
     "title": "Work Experience",
@@ -20,22 +20,22 @@
       "Orbis Corp SA": {
         "period": "03/2023 — Present",
         "role": "Full Stack Web Developer",
-        "description": "Build and maintain current project, refactor reactjs and nextjs applications for better readability migrate PHP backend into Nestjs fixing existing issues. Developing and planning of a secure election solution system for a foreign country, designed database, data structure, implemented API with Ruby on Rails and frontend with Nextjs."
+        "description": "Building and maintaining production applications while refactoring React and Next.js codebases for improved maintainability. Leading the migration of PHP backends to NestJS and resolving architectural issues. Designing and implementing a secure election management system, including database architecture, API implementation in Ruby on Rails, and frontend development with Next.js."
       },
       "Kikoya": {
         "period": "07 — 10/2022",
         "role": "Trainee Ruby on Rails Developer",
-        "description": "I worked with customer support to fix bugs, creating tests for each fix or feature. I helped other trainees solve challenges and bridged communication between clients and the development team by simplifying technical issues for better understanding."
+        "description": "Collaborated with customer support teams to identify and resolve bugs, implementing comprehensive tests for each fix and feature. Mentored fellow trainees through technical challenges and facilitated clear communication between clients and development teams by translating complex technical concepts."
       },
       "Le Wagon": {
         "period": "02 — 10/2022",
         "role": "Web Development Teacher Assistant",
-        "description": "I tailored classes for a diverse group of students, adjusting the content to fit their needs. I regularly reviewed their progress and provided detailed feedback on how they were doing. For students who needed extra help, I mentored them and kept a close eye on their progress to make sure they stayed on track and reached their goals."
+        "description": "Delivered personalized instruction to diverse cohorts, adapting content to meet individual learning needs. Provided constructive feedback and tracked student progress, offering additional mentoring to support their development and ensure achievement of learning objectives."
       },
       "Dellomondo SA": {
         "period": "2015 — 07/2021",
         "role": "Operations Manager",
-        "description": "Managed inventory and built strong relationships with suppliers to secure deals and purchase stock efficiently, avoiding excess inventory costs. I oversaw customs, imports, and logistics, handling both international and domestic freight. Additionally, I led the sales team and store staff, resolving client issues in a way that benefited both the company and customers."
+        "description": "Managed inventory operations and cultivated strong supplier relationships to optimize procurement and minimize carrying costs. Oversaw international and domestic logistics, customs clearance, and freight management. Led sales and operations teams, successfully resolving customer concerns while maintaining profitability."
       }
     }
   },
@@ -43,15 +43,28 @@
     "title": "Technologies"
   },
   "projects": {
-    "title": "Projects",
+    "title": "Featured Projects",
     "Duolingo Clone - Lingo": {
-      "description": "Duolingo clone website build with Next.js,Tailwindcss, Neon for database, Clerkjs for auth and stripe for payments processing. Admin dashboard to create new courses and lessons"
+      "description": "A full-featured language learning platform built with Next.js, Tailwind CSS, and Neon. Integrated Clerk for authentication and Stripe for payment processing. Includes an admin dashboard for creating and managing courses and lessons."
     },
     "Omnifoods": {
-      "description": "Landing page for a food delivery service built with HTML, CSS, and JavaScript. Made to learn more about CSS and positionig elements with grid and flexbox also to learn about responsive design"
+      "description": "A responsive landing page for a food delivery service. Built with HTML, CSS, and JavaScript to demonstrate proficiency with modern layout techniques including CSS Grid and Flexbox."
     },
     "POW checkout page": {
-      "description": "Made a responsive checkout page with HTML, CSS and Javascript, used bootstrap to position elements and make the page responsive"
+      "description": "A fully responsive e-commerce checkout page designed with HTML, CSS, and JavaScript. Utilized Bootstrap to ensure consistent styling and optimal responsiveness across all devices."
     }
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "description": "Have a question or want to work together? I'd love to hear from you. Drop me a message and I'll get back to you as soon as possible.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@email.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell me what's on your mind...",
+    "submitButton": "Send Message",
+    "successMessage": "Message sent successfully! I'll get back to you soon.",
+    "errorMessage": "Something went wrong. Please try again."
   }
 }

@@ -9,11 +9,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ["var(--font-playfair-display)", "serif"],
+        sans: ["var(--font-plus-jakarta-sans)", "sans-serif"],
+      },
       scale: {
         "102": "1.02",
+        "103": "1.03",
       },
       animation: {
         "spin-slow": "spin 3s linear infinite",
+        "fade-in-up": "fadeInUp 0.6s ease-out",
+        "fade-in": "fadeIn 0.6s ease-out",
+        "slide-in-right": "slideInFromRight 0.7s ease-out",
+        "subtle-float": "subtleFloat 3s ease-in-out infinite",
+        "shimmer": "shimmer 2s infinite",
       },
       colors: {
         background: "hsl(var(--background))",
@@ -61,6 +71,10 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        "lg-luxury": "0 20px 40px rgba(0, 0, 0, 0.12), 0 10px 20px rgba(0, 0, 0, 0.08)",
+        "md-luxury": "0 10px 20px rgba(0, 0, 0, 0.08), 0 5px 10px rgba(0, 0, 0, 0.04)",
       },
     },
   },

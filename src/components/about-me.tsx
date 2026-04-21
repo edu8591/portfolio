@@ -7,26 +7,69 @@ import { useTranslations } from "next-intl";
 export const AboutMe = () => {
   const t = useTranslations("aboutMeSection");
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    },
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    },
+  };
+
   return (
     <motion.section
-      id="about-me"
-      className="mb-16 md:mb-32"
-      variants={{
-        initial: { opacity: 0 },
-        onView: { opacity: 1 },
-      }}
-      initial="initial"
-      whileInView={"onView"}
-      transition={{ duration: 0.6, ease: "easeIn" }}
-      viewport={{ once: true }}
+      className="mb-16"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
     >
-      <Title>{t("title")}</Title>
+      <motion.div variants={titleVariants}>
+        <Title>{t("title")}</Title>
+      </motion.div>
 
-      <div className="flex flex-col gap-y-5">
-        <p>{t("parragraphFirst")}</p>
-        <p>{t("parragraphSecond")}</p>
-        <p>{t("parragraphThird")}</p>
-      </div>
+      <motion.div
+        className="flex flex-col gap-y-6"
+        variants={containerVariants}
+      >
+        <motion.p
+          variants={itemVariants}
+          className="text-foreground/85 leading-relaxed text-base"
+        >
+          {t("parragraphFirst")}
+        </motion.p>
+        <motion.p
+          variants={itemVariants}
+          className="text-foreground/85 leading-relaxed text-base"
+        >
+          {t("parragraphSecond")}
+        </motion.p>
+        <motion.p
+          variants={itemVariants}
+          className="text-foreground/85 leading-relaxed text-base"
+        >
+          {t("parragraphThird")}
+        </motion.p>
+      </motion.div>
     </motion.section>
   );
 };
