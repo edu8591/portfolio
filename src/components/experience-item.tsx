@@ -10,7 +10,7 @@ type ExperienceItemProps = {
 
 export const ExperienceItem = ({ company }: ExperienceItemProps) => {
   const t = useTranslations(`workExperience.experience.${company}`);
-  console.log(t.raw("skills"));
+
   return (
     <MotionCard>
       <div className="flex flex-col justify-between gap-y-4 lg:grid lg:grid-cols-4 lg:items-start">

@@ -36,7 +36,7 @@
         "companyName": "Orbis Corp SA",
         "period": "03/2023 — 10/2024",
         "role": "Full Stack Web Developer",
-        "description": "Worked across the full stack to modernize and stabilize existing systems while also delivering new products from scratch. Took a legacy React.js energy-tracking app and brought it up to maintainable standards, then jumped into the backend to fix a broken Nest.js migration. Beyond maintenance work, led the complete development of a secure national election system for a foreign country, handling everything from database design to shipping the front-end in production.",
+        "description": "Worked across the full stack to modernize and stabilize existing systems while also delivering new products from scratch. Took a legacy React.js energy-tracking app and brought it up to maintainable standards, then jumped into the backend to fix a broken Nest.js migration. Beyond maintenance work, led the complete development of a secure national election system for a foreign country, handling everything from database design to shipping the front end to production.",
         "skills": ["React.js", "Next.js", "Nest.js", "Ruby on Rails"]
       },
       "kikoya": {
@@ -63,11 +63,11 @@
         ]
       },
       "dellomondo": {
-        "companyName": "Delomondo SA",
+        "companyName": "Dellomondo SA",
         "period": "2015 — 07/2021",
         "role": "Operations Manager",
         "description": "Managed inventory operations and cultivated strong supplier relationships to optimize procurement and minimize carrying costs. Oversaw international and domestic logistics, customs clearance, and freight management. Led sales and operations teams, successfully resolving customer concerns while maintaining profitability.",
-        "skills": ["Excell", "Incoterms", "Logistics", "Supply Chain"]
+        "skills": ["Excel", "Incoterms", "Logistics", "Supply Chain"]
       }
     }
   },
