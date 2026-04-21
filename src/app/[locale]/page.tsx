@@ -4,15 +4,8 @@ import {
   LocaleSwitcher,
   ThemeSwitcher,
 } from "@/components";
-import { unstable_setRequestLocale } from "next-intl/server";
 
-type HomePageProps = {
-  params: { locale: string };
-};
-
-export default function Home({ params: { locale } }: HomePageProps) {
-  unstable_setRequestLocale(locale);
-
+export default async function Home() {
   return (
     <main className="min-h-screen bg-background">
       <nav className="border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-0 z-50">
