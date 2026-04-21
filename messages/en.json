@@ -17,57 +17,25 @@
   "workExperience": {
     "title": "Work Experience",
     "experience": {
-      "silas": {
-        "companyName": "Silas Insurtech",
-        "period": "10/2024 - Present",
-        "role": "Front End Lead Developer / Chief Product Officer",
-        "description": "Built the front-end architecture from the ground up for an AI-powered insurance underwriting platform, taking part in the product design since day one — from defining the system structure to translating the founder's vision into fully functional, user-facing features. Owned the full development cycle from design spec to production deployment using Next.js, TypeScript, Tailwind CSS, and ShadCN. Led a team of front-end developers by defining sprint tasks, setting delivery timelines, and conducting code reviews to maintain quality and consistency. Collaborated directly with the backend team to design and implement API integrations, ensuring seamless front-end/back-end communication.",
-        "skills": [
-          "React.js",
-          "Next.js",
-          "Tailwind Css",
-          "API Integration",
-          "Team Leadership",
-          "Project Management",
-          "Product Design"
-        ]
-      },
-      "orbis": {
-        "companyName": "Orbis Corp SA",
-        "period": "03/2023 — 10/2024",
+      "Orbis Corp SA": {
+        "period": "03/2023 — Present",
         "role": "Full Stack Web Developer",
-        "description": "Worked across the full stack to modernize and stabilize existing systems while also delivering new products from scratch. Took a legacy React.js energy-tracking app and brought it up to maintainable standards, then jumped into the backend to fix a broken Nest.js migration. Beyond maintenance work, led the complete development of a secure national election system for a foreign country, handling everything from database design to shipping the front end to production.",
-        "skills": ["React.js", "Next.js", "Nest.js", "Ruby on Rails"]
+        "description": "Building and maintaining production applications while refactoring React and Next.js codebases for improved maintainability. Leading the migration of PHP backends to NestJS and resolving architectural issues. Designing and implementing a secure election management system, including database architecture, API implementation in Ruby on Rails, and frontend development with Next.js."
       },
-      "kikoya": {
-        "companyName": "Kikoya",
+      "Kikoya": {
         "period": "07 — 10/2022",
         "role": "Trainee Ruby on Rails Developer",
-        "description": "Worked closely with customer support to track down and fix bugs across the Rails codebase, including a long-standing XML parsing issue that had been blocking a critical workflow. Acted as the technical bridge between the customer service and engineering teams, translating reported problems into actionable fixes and speeding up issue resolution across the board.",
-        "skills": ["Ruby on Rails", "PostgreSQL", "RSpec", "CoffeeScript"]
+        "description": "Collaborated with customer support teams to identify and resolve bugs, implementing comprehensive tests for each fix and feature. Mentored fellow trainees through technical challenges and facilitated clear communication between clients and development teams by translating complex technical concepts."
       },
-      "leWagon": {
-        "companyName": "Le Wagon",
+      "Le Wagon": {
         "period": "02 — 10/2022",
         "role": "Web Development Teacher Assistant",
-        "description": "Prepared and delivered classes for a diverse cohort of bootcamp students, adapting content on the fly to address common pain points. Mentored students who needed extra support, keeping close track of their individual progress to make sure everyone crossed the finish line.",
-        "skills": [
-          "Ruby on Rails",
-          "Javascript",
-          "HTML",
-          "CSS",
-          "Bootstrap",
-          "Heroku",
-          "Git",
-          "Linux"
-        ]
+        "description": "Delivered personalized instruction to diverse cohorts, adapting content to meet individual learning needs. Provided constructive feedback and tracked student progress, offering additional mentoring to support their development and ensure achievement of learning objectives."
       },
-      "dellomondo": {
-        "companyName": "Dellomondo SA",
+      "Dellomondo SA": {
         "period": "2015 — 07/2021",
         "role": "Operations Manager",
-        "description": "Managed inventory operations and cultivated strong supplier relationships to optimize procurement and minimize carrying costs. Oversaw international and domestic logistics, customs clearance, and freight management. Led sales and operations teams, successfully resolving customer concerns while maintaining profitability.",
-        "skills": ["Excel", "Incoterms", "Logistics", "Supply Chain"]
+        "description": "Managed inventory operations and cultivated strong supplier relationships to optimize procurement and minimize carrying costs. Oversaw international and domestic logistics, customs clearance, and freight management. Led sales and operations teams, successfully resolving customer concerns while maintaining profitability."
       }
     }
   },
@@ -76,21 +44,13 @@
   },
   "projects": {
     "title": "Featured Projects",
-    "view": "View Project",
-    "silas": {
-      "projectName": "Silas Insurtech Platform",
-      "description": "A revolutionary insurance underwriting platform that leverages AI to streamline risk assessment and policy management. Built with Next.js, TypeScript, Tailwind CSS, and ShadCN, it offers a seamless user experience while providing powerful tools for insurers to optimize their operations."
-    },
-    "duolingoClone": {
-      "projectName": "Duolingo Clone - Lingo",
+    "Duolingo Clone - Lingo": {
       "description": "A full-featured language learning platform built with Next.js, Tailwind CSS, and Neon. Integrated Clerk for authentication and Stripe for payment processing. Includes an admin dashboard for creating and managing courses and lessons."
     },
-    "omnifoods": {
-      "projectName": "Omnifoods",
+    "Omnifoods": {
       "description": "A responsive landing page for a food delivery service. Built with HTML, CSS, and JavaScript to demonstrate proficiency with modern layout techniques including CSS Grid and Flexbox."
     },
-    "checkoutPage": {
-      "projectName": "POW Checkout Page",
+    "POW checkout page": {
       "description": "A fully responsive e-commerce checkout page designed with HTML, CSS, and JavaScript. Utilized Bootstrap to ensure consistent styling and optimal responsiveness across all devices."
     }
   },
