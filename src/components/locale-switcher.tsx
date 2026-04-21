@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useRouter, usePathname } from "@/i18n/routing";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { motion, AnimatePresence } from "motion/react";
 
 export const LocaleSwitcher = () => {
   const router = useRouter();
@@ -65,7 +65,13 @@ export const LocaleSwitcher = () => {
                 onClick={() => handleLocaleChange(locale.code)}
                 className="w-full px-4 py-3 text-left text-sm text-foreground hover:bg-accent/10 transition-colors duration-200 flex items-center gap-2"
               >
-                <span>{locale.code === "en" ? "🇬🇧" : locale.code === "es" ? "🇪🇸" : "🇯🇵"}</span>
+                <span>
+                  {locale.code === "en"
+                    ? "🇬🇧"
+                    : locale.code === "es"
+                      ? "🇪🇸"
+                      : "🇯🇵"}
+                </span>
                 <span>{locale.label}</span>
               </button>
             ))}

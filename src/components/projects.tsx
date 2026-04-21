@@ -6,7 +6,7 @@ import Image from "next/image";
 import { MotionCard } from "./motion-card";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export const Projects = () => {
   const t = useTranslations("projects");
@@ -37,8 +37,10 @@ export const Projects = () => {
                 <Image
                   src={project.src}
                   fill
+                  sizes="(min-width: 1024px) 224px, 100vw"
                   alt={`${project.name} preview`}
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
