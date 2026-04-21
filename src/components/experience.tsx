@@ -1,27 +1,57 @@
+"use client";
+
 import { experiences } from "@/constants/experiences";
 import { ExperienceItem } from "./experience-item";
 import { Title } from "./title";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { motion } from "framer-motion";
 
 export const Experience = () => {
   const t = useTranslations("workExperience");
 
-  const renderedExperiences = useMemo(() => {
-    return experiences.map((experience) => {
-      return (
-        <ExperienceItem experience={experience} key={experience.company} />
-      );
-    });
-  }, []);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    },
+  };
+
+  const renderedExperiences = experiences.map((experience) => (
+    <ExperienceItem experience={experience} key={experience.company} />
+  ));
 
   return (
-    <section className="mb-16 md:mb-32" id="work-experience">
-      <Title>{t("title")}</Title>
+    <section>
+      <motion.div
+        variants={titleVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <Title>{t("title")}</Title>
+      </motion.div>
 
-      <div className="flex flex-col gap-y-6 overflow-hidden p-2">
+      <motion.div
+        className="flex flex-col gap-y-6 overflow-hidden"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         {renderedExperiences}
-      </div>
+      </motion.div>
     </section>
   );
 };
