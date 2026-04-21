@@ -1,23 +1,23 @@
 import { projects } from "@/constants/projects";
-import { Title } from "./title";
 import Image from "next/image";
 import { MotionCard } from "./motion-card";
 import Link from "next/link";
 import * as motion from "motion/react-client";
 import { getTranslations } from "next-intl/server";
+import { AnimatedTitle } from "./animated-title";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
 
 export const Projects = async () => {
   const t = await getTranslations("projects");
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
 
   const renderedProjects = projects.map((project, index) => {
     return (
@@ -74,7 +74,7 @@ export const Projects = async () => {
 
   return (
     <section className="mb-16 md:mb-32" id="projects">
-      <Title>{t("title")}</Title>
+      <AnimatedTitle title={t("title")} />
       <motion.div
         className="flex flex-col gap-y-6 overflow-hidden p-2"
         variants={containerVariants}
