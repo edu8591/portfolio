@@ -6,7 +6,7 @@ import {
 } from "next-intl/server";
 
 import "../globals.css";
-import { Roboto } from "next/font/google";
+import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import { ThemeProvider } from "@/components";
 import { routing } from "@/i18n/routing";
 
@@ -15,9 +15,16 @@ type Props = {
   params: { locale: string };
 };
 
-const roboto = Roboto({
-  weight: "400",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
+});
+
+const playfairDisplay = Playfair_Display({
+  weight: ["600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-playfair-display",
 });
 
 export function generateStaticParams() {
@@ -61,7 +68,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${roboto.className}  antialiased`}>
+      <body className={`${plusJakartaSans.variable} ${playfairDisplay.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider
             attribute="class"
