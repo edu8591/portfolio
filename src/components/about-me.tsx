@@ -1,11 +1,9 @@
-"use client";
+import * as motion from "motion/react-client";
+import { getTranslations } from "next-intl/server";
+import { AnimatedTitle } from "./animated-title";
 
-import { motion } from "motion/react";
-import { Title } from "./title";
-import { useTranslations } from "next-intl";
-
-export const AboutMe = () => {
-  const t = useTranslations("aboutMeSection");
+export const AboutMe = async () => {
+  const t = await getTranslations("aboutMeSection");
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -26,15 +24,6 @@ export const AboutMe = () => {
     },
   };
 
-  const titleVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
     <motion.section
       className="mb-16"
@@ -43,9 +32,7 @@ export const AboutMe = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
     >
-      <motion.div variants={titleVariants}>
-        <Title>{t("title")}</Title>
-      </motion.div>
+      <AnimatedTitle title={t("title")} />
 
       <motion.div
         className="flex flex-col gap-y-6"

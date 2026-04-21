@@ -1,34 +1,17 @@
-"use client";
 import { TooltipWrapper } from "./tooltip-wrapper";
 import { GrayscaleImage } from "./grayscale-image";
-import { Title } from "./title";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 import { AnimateEntryIcon } from "./animate-entry-icon";
-import { useTranslations } from "next-intl";
 import { technologiesList } from "@/constants/technologies";
+import { getTranslations } from "next-intl/server";
+import { AnimatedTitle } from "./animated-title";
 
-export const Technologies = () => {
-  const t = useTranslations("technologies");
-
-  const titleVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
+export const Technologies = async () => {
+  const t = await getTranslations("technologies");
 
   return (
     <section className="mb-16">
-      <motion.div
-        variants={titleVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <Title>{t("title")}</Title>
-      </motion.div>
+      <AnimatedTitle title={t("title")} />
 
       <motion.div
         className="grid grid-cols-3 gap-x-6 gap-y-8 md:grid-cols-4 md:gap-x-8 lg:grid-cols-5 lg:gap-8 place-items-center"

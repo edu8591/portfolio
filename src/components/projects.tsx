@@ -1,25 +1,23 @@
-"use client";
-
 import { projects } from "@/constants/projects";
-import { Title } from "./title";
 import Image from "next/image";
 import { MotionCard } from "./motion-card";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
+import { getTranslations } from "next-intl/server";
+import { AnimatedTitle } from "./animated-title";
 
-export const Projects = () => {
-  const t = useTranslations("projects");
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
     },
-  };
+  },
+};
+
+export const Projects = async () => {
+  const t = await getTranslations("projects");
 
   const renderedProjects = projects.map((project, index) => {
     return (
@@ -40,19 +38,18 @@ export const Projects = () => {
                   sizes="(min-width: 1024px) 224px, 100vw"
                   alt={`${project.name} preview`}
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <div className="mt-4 lg:mt-0 lg:flex-1">
                 <h3 className="text-2xl font-serif font-semibold text-foreground group-hover:text-accent transition-colors duration-300">
-                  {project.name}
+                  {t(`${project.name}.projectName`)}
                 </h3>
                 <p className="text-foreground/75 mt-2 leading-relaxed text-sm md:text-base">
                   {t(`${project.name}.description`)}
                 </p>
                 <div className="mt-4 inline-flex items-center text-accent font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
-                  View Project
+                  {t("view")}
                   <svg
                     className="ml-2 w-4 h-4"
                     fill="none"
@@ -77,7 +74,7 @@ export const Projects = () => {
 
   return (
     <section className="mb-16 md:mb-32" id="projects">
-      <Title>{t("title")}</Title>
+      <AnimatedTitle title={t("title")} />
       <motion.div
         className="flex flex-col gap-y-6 overflow-hidden p-2"
         variants={containerVariants}

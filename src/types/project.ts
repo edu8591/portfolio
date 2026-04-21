@@ -1,6 +1,5 @@
 export type Project = {
-  name: string;
+  name: "silas" | "duolingoClone" | "omnifoods" | "checkoutPage";
   src: string;
-  description: string;
   url: string;
 };
