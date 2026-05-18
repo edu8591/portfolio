@@ -25,7 +25,7 @@ export const ExperienceItem = async ({ company }: ExperienceItemProps) => {
         </p>
       </div>
 
-      <Separator className="my-4 bg-gradient-to-r from-accent/40 to-transparent" />
+      <Separator className="my-4 bg-linear-to-r from-accent/40 to-transparent" />
 
       <div className="space-y-3">
         <p className="leading-6 text-foreground/85 text-sm md:text-base">
