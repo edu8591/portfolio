@@ -26,7 +26,7 @@ export const Experience = () => {
       <AnimatedTitle title={t("title")} />
 
       <motion.div
-        className="flex flex-col gap-y-6 overflow-hidden"
+        className="flex flex-col gap-y-6 overflow-hidden p-2"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
