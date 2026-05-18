@@ -8,6 +8,19 @@
     "start": "next start",
     "lint": "eslint ."
   },
+  "pnpm": {
+    "overrides": {
+      "postcss": ">=8.5.10",
+      "next>postcss": ">=8.5.10"
+    },
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "msw",
+      "sharp",
+      "unrs-resolver"
+    ]
+  },
   "dependencies": {
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-tooltip": "^1.2.8",
@@ -36,17 +49,5 @@
     "postcss": "^8.5.14",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "postcss": "^8.5.10"
-    },
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "@swc/core",
-      "msw",
-      "sharp",
-      "unrs-resolver"
-    ]
   }
 }
