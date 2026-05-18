@@ -37,7 +37,7 @@ export const IntroSection = async () => {
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-foreground leading-tight">
           {t("name")}
         </h1>
-        <div className="h-1.5 w-20 bg-gradient-to-r from-accent to-accent/50 mt-4 lg:mx-0 mx-auto"></div>
+        <div className="h-1.5 w-20 bg-linear-to-r from-accent to-accent/50 mt-4 lg:mx-0 mx-auto"></div>
       </motion.div>
 
       <motion.h2

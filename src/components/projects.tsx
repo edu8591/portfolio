@@ -31,7 +31,7 @@ export const Projects = async () => {
         <MotionCard>
           <Link href={project.url} target="_blank" className="group block">
             <div className="lg:flex lg:gap-6 lg:items-start">
-              <div className="relative w-full aspect-video lg:h-40 lg:w-56 border-2 border-accent/30 rounded-lg overflow-hidden flex-shrink-0 group-hover:border-accent transition-colors duration-300">
+              <div className="relative w-full aspect-video lg:h-40 lg:w-56 border-2 border-accent/30 rounded-lg overflow-hidden shrink-0 group-hover:border-accent transition-colors duration-300">
                 <Image
                   src={project.src}
                   fill
@@ -39,7 +39,7 @@ export const Projects = async () => {
                   alt={`${project.name} preview`}
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-foreground/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <div className="mt-4 lg:mt-0 lg:flex-1">
                 <h3 className="text-2xl font-serif font-semibold text-foreground group-hover:text-accent transition-colors duration-300">
