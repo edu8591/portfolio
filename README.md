@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/74a4811a-488f-4847-beea-9d07f22a39bf/deploy-status)](https://app.netlify.com/projects/edodesu-porfolio/deploys)
+
 ## Getting Started
 
 Install dependencies:
@@ -7,6 +9,7 @@ pnpm install
 ```
 
 Run project
+
 ```bash
 pnpm dev
 ```
@@ -14,6 +17,7 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 Project mande with:
+
 - Next.js [https://nextjs.org]
 - TailwindCss [https://tailwindcss.com]
 - ShadcnUI [https://ui.shadcn.com]
