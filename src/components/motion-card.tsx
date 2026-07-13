@@ -3,15 +3,25 @@
 import { motion } from "motion/react";
 import { Card } from "./ui";
 
-export const MotionCard = ({ children }: { children: React.ReactNode }) => {
+export const MotionCard = ({
+  children,
+  animateEntry = true,
+}: {
+  children: React.ReactNode;
+  animateEntry?: boolean;
+}) => {
   return (
     <motion.div
-      variants={{
-        initial: { x: 30, opacity: 0 },
-        inView: { x: 0, opacity: 1 },
-      }}
-      initial="initial"
-      whileInView="inView"
+      variants={
+        animateEntry
+          ? {
+              initial: { y: 20, opacity: 0 },
+              inView: { y: 0, opacity: 1 },
+            }
+          : undefined
+      }
+      initial={animateEntry ? "initial" : undefined}
+      whileInView={animateEntry ? "inView" : undefined}
       layout
       transition={{ duration: 0.7, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.3 }}
