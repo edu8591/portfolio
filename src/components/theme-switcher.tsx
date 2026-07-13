@@ -8,9 +8,7 @@ export const ThemeSwitcher = () => {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  if (!mounted) setMounted(true);
 
   const themeOrder: Array<"light" | "dark" | "system"> = [
     "light",
