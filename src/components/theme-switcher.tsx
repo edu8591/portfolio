@@ -7,10 +7,10 @@ import { motion } from "motion/react";
 export const ThemeSwitcher = () => {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  if (!mounted) setMounted(true);
+  // useEffect(() => {
+  //   setMounted(true);
+  // }, []);
 
   const themeOrder: Array<"light" | "dark" | "system"> = [
     "light",
