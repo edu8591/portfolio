@@ -47,6 +47,23 @@ describe("createFakeTransport", () => {
     await expect(transport.send(outboundEmail())).rejects.toThrow();
   });
 
+  it("re-reads a failing predicate on every send", async () => {
+    // The E2E flag can flip between sends, so the answer must not be fixed at
+    // construction.
+    let failing = false;
+    const transport = createFakeTransport({ failing: () => failing });
+
+    await transport.send(outboundEmail());
+
+    failing = true;
+    await expect(transport.send(outboundEmail())).rejects.toThrow();
+
+    failing = false;
+    await transport.send(outboundEmail());
+
+    expect(transport.sent).toHaveLength(2);
+  });
+
   it("records nothing when configured to fail", async () => {
     // A failing transport must look like a provider that never accepted the
     // email, so a test asserting "nothing was sent" can trust the recording.

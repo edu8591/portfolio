@@ -8,8 +8,12 @@ export type FakeTransport = EmailTransport & {
 };
 
 export type FakeTransportOptions = {
-  /** When true, every send rejects and records nothing. */
-  failing?: boolean;
+  /**
+   * Whether a send should reject and record nothing. A predicate rather than a
+   * flag, so a caller reading an environment variable can change the answer
+   * between sends without rebuilding the transport.
+   */
+  failing?: boolean | (() => boolean);
 };
 
 /**
@@ -22,11 +26,12 @@ export function createFakeTransport({
   failing = false,
 }: FakeTransportOptions = {}): FakeTransport {
   const sent: OutboundEmail[] = [];
+  const isFailing = typeof failing === "function" ? failing : () => failing;
 
   return {
     sent,
     async send(email) {
-      if (failing) {
+      if (isFailing()) {
         throw new Error("Fake transport configured to fail");
       }
 

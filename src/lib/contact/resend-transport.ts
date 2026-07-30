@@ -6,6 +6,24 @@ import { readContactEnv } from "@/lib/contact/env";
 import type { EmailTransport } from "@/lib/contact/transport";
 
 /**
+ * The slice of the Resend SDK this module uses. Narrowing it to one method
+ * keeps the provider's surface area out of the rest of the codebase and lets
+ * the error-reporting branch below be tested without network access.
+ */
+export type ResendClient = {
+  emails: {
+    send(payload: {
+      from: string;
+      to: string;
+      replyTo: string;
+      subject: string;
+      html: string;
+      text: string;
+    }): Promise<{ error: { message: string } | null }>;
+  };
+};
+
+/**
  * The production transport (ADR-0001). Nothing outside this module imports the
  * Resend SDK, so swapping providers means rewriting this file alone.
  *
@@ -13,11 +31,13 @@ import type { EmailTransport } from "@/lib/contact/transport";
  * eagerly would make an unconfigured environment fail at import, taking down
  * the whole page instead of the one submission that needs the variables.
  */
-export function createResendTransport(): EmailTransport {
+export function createResendTransport(
+  createClient: (apiKey: string) => ResendClient = (apiKey) => new Resend(apiKey),
+): EmailTransport {
   return {
     async send({ subject, html, text, from, to, replyTo }) {
       const { apiKey } = readContactEnv();
-      const resend = new Resend(apiKey);
+      const resend = createClient(apiKey);
 
       const { error } = await resend.emails.send({
         from,

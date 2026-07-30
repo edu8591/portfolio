@@ -1,36 +1,16 @@
 import { createFakeTransport, type FakeTransport } from "@/lib/contact/fake-transport";
-import type { EmailTransport, OutboundEmail } from "@/lib/contact/transport";
+import type { EmailTransport } from "@/lib/contact/transport";
 
 /**
  * The one fake instance the whole process shares, so an end-to-end run can
  * assert on what the action actually handed the transport.
+ *
+ * The failure flag is read per send rather than fixed at construction, so an
+ * end-to-end spec can drive the failure path without restarting the dev server.
  */
-const recorder = createFakeTransport();
-
-/**
- * Whether the send should fail. Read per send rather than fixed when the
- * transport is built, so an end-to-end spec can drive the failure path without
- * restarting the dev server.
- */
-function isConfiguredToFail(): boolean {
-  return process.env.CONTACT_FAKE_TRANSPORT_FAILS === "true";
-}
-
-export const fakeTransport: FakeTransport = {
-  get sent(): readonly OutboundEmail[] {
-    return recorder.sent;
-  },
-  async send(email) {
-    if (isConfiguredToFail()) {
-      throw new Error("Fake transport configured to fail");
-    }
-
-    await recorder.send(email);
-  },
-  reset() {
-    recorder.reset();
-  },
-};
+export const fakeTransport: FakeTransport = createFakeTransport({
+  failing: () => process.env.CONTACT_FAKE_TRANSPORT_FAILS === "true",
+});
 
 /**
  * Whether to swap the real Resend client for the recorder (ADR-0001).
