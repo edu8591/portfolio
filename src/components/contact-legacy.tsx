@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * The pre-#51 contact form, kept only so its styling can be compared against
+ * `contact-form.tsx` side by side. It is out of the barrel and rendered
+ * nowhere, and it still posts to `/api/contact` — a route that does not exist.
+ * Delete this file once the comparison is done (a separate change).
+ */
+
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { motion, type Variants } from "motion/react";
@@ -26,7 +33,7 @@ const itemVariants: Variants = {
   },
 };
 
-export const Contact = () => {
+export const ContactLegacy = () => {
   const t = useTranslations("contact");
   const [formData, setFormData] = useState({
     name: "",

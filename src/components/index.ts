@@ -10,6 +10,6 @@ export * from "./title";
 export * from "./projects";
 export * from "./experience";
 export * from "./motion-card";
-export * from "./contact";
+export * from "./contact-form";
 export * from "./locale-switcher";
 export * from "./theme-switcher";

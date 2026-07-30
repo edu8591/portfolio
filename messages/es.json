@@ -104,7 +104,19 @@
     "messageLabel": "Mensaje",
     "messagePlaceholder": "Cuéntame qué tienes en mente...",
     "submitButton": "Enviar Mensaje",
+    "sending": "Enviando...",
+    "successTitle": "Mensaje enviado",
     "successMessage": "¡Mensaje enviado con éxito! Pronto me pondré en contacto.",
-    "errorMessage": "Algo salió mal. Por favor intenta de nuevo."
+    "sendAnother": "Enviar otro mensaje",
+    "errorMessage": "Algo salió mal. Por favor intenta de nuevo.",
+    "errors": {
+      "nameTooShort": "Por favor ingresa tu nombre (mínimo 2 caracteres).",
+      "nameTooLong": "Tu nombre debe tener 80 caracteres o menos.",
+      "emailInvalid": "Por favor ingresa un correo electrónico válido.",
+      "emailTooLong": "Tu correo electrónico debe tener 254 caracteres o menos.",
+      "messageTooShort": "Por favor escribe un mensaje de al menos 10 caracteres.",
+      "messageTooLong": "Tu mensaje debe tener 2000 caracteres o menos.",
+      "invalid": "Este valor no es válido."
+    }
   }
 }
