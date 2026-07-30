@@ -8,13 +8,6 @@ export type ContactErrorMessageKey =
   | "messageTooLong"
   | "invalid";
 
-/** The part of a Zod issue this mapper reads. Kept structural so a plain object works. */
-export type ContactIssue = {
-  code: string;
-  path: PropertyKey[];
-  message: string;
-};
-
 const KEYS_BY_FIELD: Record<string, Partial<Record<string, ContactErrorMessageKey>>> = {
   name: { too_small: "nameTooShort", too_big: "nameTooLong", invalid_type: "nameTooShort" },
   email: {
@@ -31,18 +24,16 @@ const KEYS_BY_FIELD: Record<string, Partial<Record<string, ContactErrorMessageKe
 };
 
 /**
- * Turns a Zod issue into a translation key.
+ * Turns a field name and a Zod issue code into a translation key.
  *
  * The shared schema (#48) carries no messages, because a message in the schema
  * would be a single hard-coded language reaching both the Server Action and
  * three locales. Translating happens here instead, at the edge that has a
- * translator, and the key is all the schema's structure is asked to yield.
+ * translator, and the code is all the schema's structure is asked to yield.
  *
  * Anything unrecognised falls back to a generic key rather than surfacing Zod's
  * untranslated English to a Visitor.
  */
-export function errorMessageKey(issue: ContactIssue): ContactErrorMessageKey {
-  const field = typeof issue.path[0] === "string" ? issue.path[0] : "";
-
-  return KEYS_BY_FIELD[field]?.[issue.code] ?? "invalid";
+export function errorMessageKey(field: string, code: string): ContactErrorMessageKey {
+  return KEYS_BY_FIELD[field]?.[code] ?? "invalid";
 }

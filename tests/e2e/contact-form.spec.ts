@@ -1,40 +1,12 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
-import { MINIMUM_TIME_TO_SUBMIT_MS } from "@/lib/contact/spam-guards";
-
-const validMessage = {
-  name: "Ada Lovelace",
-  email: "ada@example.com",
-  message: "I saw your portfolio and would like to talk about a project.",
-};
-
-function fields(page: Page) {
-  return {
-    name: page.getByLabel("Name", { exact: true }),
-    email: page.getByLabel("Email", { exact: true }),
-    message: page.getByLabel("Message", { exact: true }),
-    submit: page.getByRole("button", { name: "Send Message" }),
-  };
-}
-
-async function fillValidMessage(page: Page) {
-  const { name, email, message } = fields(page);
-
-  await name.fill(validMessage.name);
-  await email.fill(validMessage.email);
-  await message.fill(validMessage.message);
-}
-
-/**
- * The too-fast spam guard rejects anything submitted within
- * `MINIMUM_TIME_TO_SUBMIT_MS` of the form rendering. A Visitor typing a real
- * message clears it comfortably; Playwright does not, so the happy path has to
- * wait it out rather than mock the clock — the guard is part of what these
- * tests exist to prove works.
- */
-async function waitOutTheSpamGuard(page: Page) {
-  await page.waitForTimeout(MINIMUM_TIME_TO_SUBMIT_MS + 500);
-}
+import {
+  expectDescribedError,
+  fields,
+  fillValidMessage,
+  validMessage,
+  waitOutTheSpamGuard,
+} from "./contact-form.helpers";
 
 test.describe("contact form", () => {
   test("is reachable via the #contact anchor", async ({ page }) => {
@@ -66,20 +38,70 @@ test.describe("contact form", () => {
     await message.fill("short");
     await submit.click();
 
-    await expect(page.getByText("Please enter your name (at least 2 characters).")).toBeVisible();
-    await expect(page.getByText("Please enter a valid email address.")).toBeVisible();
-    await expect(
-      page.getByText("Please write a message of at least 10 characters."),
-    ).toBeVisible();
-
-    // Invalidity is wired to the control, not just painted on.
-    await expect(name).toHaveAttribute("aria-invalid", "true");
-    await expect(email).toHaveAttribute("aria-invalid", "true");
-    await expect(message).toHaveAttribute("aria-invalid", "true");
+    await expectDescribedError(
+      page,
+      "name",
+      "Please enter your name (at least 2 characters).",
+    );
+    await expectDescribedError(page, "email", "Please enter a valid email address.");
+    await expectDescribedError(
+      page,
+      "message",
+      "Please write a message of at least 10 characters.",
+    );
 
     // Nothing was sent: the form is still here, with every value intact.
     await expect(submit).toBeEnabled();
     await expect(name).toHaveValue("A");
+  });
+
+  test("keeps focus and caret in the field while the Visitor types", async ({ page }) => {
+    await page.goto("/en#contact");
+
+    const { message } = fields(page);
+
+    // Typed key by key rather than filled, so a control that remounts per
+    // keystroke — the failure mode of defining a component during render —
+    // shows up as lost focus or a scrambled value.
+    await message.click();
+    await page.keyboard.type("Hello there, this is a real message.", { delay: 10 });
+
+    await expect(message).toBeFocused();
+    await expect(message).toHaveValue("Hello there, this is a real message.");
+  });
+
+  test("disables the submit control and shows a pending state while sending", async ({
+    page,
+  }) => {
+    await page.goto("/en#contact");
+    await fillValidMessage(page);
+    await waitOutTheSpamGuard(page);
+
+    const { submit } = fields(page);
+
+    // The action resolves quickly against the recorder, so the pending state is
+    // caught by holding the response until both assertions have run.
+    let release: () => void = () => {};
+    const held = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+
+    await page.route("**/en**", async (route) => {
+      if (route.request().method() !== "POST") {
+        return route.fallback();
+      }
+
+      await held;
+      return route.fallback();
+    });
+
+    await submit.click();
+
+    await expect(submit).toBeDisabled();
+    await expect(submit).toHaveText("Sending...");
+
+    release();
+    await expect(page.getByTestId("contact-success")).toBeVisible({ timeout: 15_000 });
   });
 
   test("replaces the form with a persistent success state once the send is confirmed", async ({
@@ -132,17 +154,66 @@ test.describe("contact form", () => {
     await fields(page).message.focus();
     await page.keyboard.press("Tab");
     await expect(honeypot).not.toBeFocused();
+
+    // Present in the submission: a bot that fills it in gets the same success
+    // state as a Visitor, and the transport is never reached. Proven here by
+    // submitting inside the spam-guard window with the decoy filled — a send
+    // that would otherwise be rejected as too fast still reports success.
+    await fillValidMessage(page);
+
+    // Set through the DOM rather than `fill()`, which refuses invisible
+    // elements — the very property that makes this a honeypot. A bot driving
+    // the markup directly has no such scruples.
+    await honeypot.evaluate((input: HTMLInputElement) => {
+      input.value = "https://bot.example";
+    });
+
+    await fields(page).submit.click();
+
+    await expect(page.getByTestId("contact-success")).toBeVisible({ timeout: 15_000 });
   });
 
-  test("renders the section in every locale", async ({ page }) => {
-    for (const [locale, label] of [
-      ["es", "Enviar Mensaje"],
-      ["jp", "メッセージを送信"],
-    ]) {
+  test("translates errors and the success state in every locale", async ({ page }) => {
+    const locales = [
+      {
+        locale: "es",
+        submit: "Enviar Mensaje",
+        nameError: "Por favor ingresa tu nombre (mínimo 2 caracteres).",
+        success: "Mensaje enviado",
+        sendAnother: "Enviar otro mensaje",
+      },
+      {
+        locale: "jp",
+        submit: "メッセージを送信",
+        nameError: "お名前を入力してください（2文字以上）。",
+        success: "送信完了",
+        sendAnother: "別のメッセージを送信",
+      },
+    ];
+
+    for (const { locale, submit, nameError, success, sendAnother } of locales) {
       await page.goto(`/${locale}#contact`);
 
       await expect(page.locator("#contact")).toBeVisible();
-      await expect(page.getByRole("button", { name: label })).toBeVisible();
+
+      const submitButton = page.getByRole("button", { name: submit });
+      await expect(submitButton).toBeVisible();
+
+      // A translated inline error.
+      await page.locator("#contact-name").fill("A");
+      await submitButton.click();
+      await expect(page.locator("#contact-name-error")).toHaveText(nameError);
+
+      // And a translated success state.
+      await page.locator("#contact-name").fill(validMessage.name);
+      await page.locator("#contact-email").fill(validMessage.email);
+      await page.locator("#contact-message").fill(validMessage.message);
+      await waitOutTheSpamGuard(page);
+      await submitButton.click();
+
+      const successState = page.getByTestId("contact-success");
+      await expect(successState).toContainText(success, { timeout: 15_000 });
+      await expect(page.getByRole("button", { name: sendAnother })).toBeVisible();
     }
   });
 });

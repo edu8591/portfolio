@@ -1,12 +1,11 @@
 import { expect, test } from "@playwright/test";
 
-import { MINIMUM_TIME_TO_SUBMIT_MS } from "@/lib/contact/spam-guards";
-
-const validMessage = {
-  name: "Ada Lovelace",
-  email: "ada@example.com",
-  message: "I saw your portfolio and would like to talk about a project.",
-};
+import {
+  fields,
+  fillValidMessage,
+  validMessage,
+  waitOutTheSpamGuard,
+} from "./contact-form.helpers";
 
 /**
  * Runs against the dev server whose fake transport is configured to reject, so
@@ -19,17 +18,10 @@ test("keeps every typed value and shows the error inline when the send fails", a
   page,
 }) => {
   await page.goto("/en#contact");
+  await fillValidMessage(page);
+  await waitOutTheSpamGuard(page);
 
-  const name = page.getByLabel("Name", { exact: true });
-  const email = page.getByLabel("Email", { exact: true });
-  const message = page.getByLabel("Message", { exact: true });
-  const submit = page.getByRole("button", { name: "Send Message" });
-
-  await name.fill(validMessage.name);
-  await email.fill(validMessage.email);
-  await message.fill(validMessage.message);
-
-  await page.waitForTimeout(MINIMUM_TIME_TO_SUBMIT_MS + 500);
+  const { name, email, message, submit } = fields(page);
   await submit.click();
 
   await expect(page.getByText("Something went wrong. Please try again.")).toBeVisible({

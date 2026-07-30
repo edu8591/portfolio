@@ -2,7 +2,12 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { Controller, useForm } from "react-hook-form";
+import {
+  Controller,
+  useForm,
+  type Control,
+  type ControllerRenderProps,
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as motion from "motion/react-client";
 
@@ -22,7 +27,83 @@ import {
 import { MotionCard } from "./motion-card";
 import { Title } from "./title";
 
+const CONTACT_FIELDS = ["name", "email", "message"] as const;
+
 const EMPTY_MESSAGE: ContactMessage = { name: "", email: "", message: "" };
+
+/**
+ * The `type` given to a field the Server Action rejected. No Zod code matches
+ * it, so it maps to the generic key — deliberately, since a flattened server
+ * response carries no code precise enough to say more.
+ */
+const SERVER_REJECTED = "server-rejected";
+
+function isContactField(field: string): field is keyof ContactMessage {
+  return (CONTACT_FIELDS as readonly string[]).includes(field);
+}
+
+/**
+ * Everything a control needs to be controlled, labelled, and wired for
+ * accessibility. Spread onto whichever element the field renders.
+ */
+type ControlledFieldProps = ControllerRenderProps<ContactMessage> & {
+  id: string;
+  placeholder: string;
+  "aria-invalid": true | undefined;
+  "aria-describedby": string | undefined;
+};
+
+/**
+ * One labelled, validated control. The aria wiring lives here once rather than
+ * once per field, so an accessibility fix is a single edit rather than three
+ * that have to agree.
+ *
+ * Module-scoped, not nested in `ContactForm`: a component redefined on every
+ * render remounts its subtree, which would drop the Visitor's focus and caret
+ * on every keystroke.
+ */
+const ContactField = ({
+  control,
+  name,
+  label,
+  placeholder,
+  error,
+  children,
+}: {
+  control: Control<ContactMessage>;
+  name: keyof ContactMessage;
+  label: string;
+  placeholder: string;
+  error: string | undefined;
+  children: (props: ControlledFieldProps) => React.ReactNode;
+}) => {
+  const id = `contact-${name}`;
+  const errorId = `${id}-error`;
+
+  return (
+    <Controller
+      control={control}
+      name={name}
+      render={({ field, fieldState }) => (
+        <Field data-invalid={fieldState.invalid || undefined}>
+          <FieldLabel htmlFor={id}>{label}</FieldLabel>
+          {/*
+            `field` carries the value and change handlers; the render prop
+            supplies only what differs between a text input and a textarea.
+          */}
+          {children({
+            ...field,
+            id,
+            placeholder,
+            "aria-invalid": fieldState.invalid || undefined,
+            "aria-describedby": fieldState.invalid ? errorId : undefined,
+          })}
+          <FieldError id={errorId}>{error}</FieldError>
+        </Field>
+      )}
+    />
+  );
+};
 
 /**
  * The Visitor's contact form.
@@ -87,13 +168,14 @@ export const ContactForm = () => {
       }
 
       if (result.status === "invalid") {
-        // The server disagreed with the client's own parse. Surface it on the
-        // fields rather than as a generic error, and keep every value.
+        // The server disagreed with the client's own parse — normally
+        // unreachable, since both run the same schema. It carries flattened
+        // messages rather than issue codes, so there is nothing precise to
+        // translate; the generic key is the honest answer. Surfaced on the
+        // fields rather than as a form-level error, with every value kept.
         for (const [field, messages] of Object.entries(result.fieldErrors)) {
-          if (field in EMPTY_MESSAGE && messages?.length) {
-            setError(field as keyof ContactMessage, {
-              message: tErrors("invalid"),
-            });
+          if (isContactField(field) && messages?.length) {
+            setError(field, { type: SERVER_REJECTED });
           }
         }
         return;
@@ -114,22 +196,14 @@ export const ContactForm = () => {
    * The message to show under a field.
    *
    * The Zod resolver stores the issue code as the error's `type` and Zod's
-   * untranslated English as its `message`, so the code is what gets translated
-   * here. Errors set from the action's response carry no code and are already
-   * translated, so their message is used as-is.
+   * untranslated English as its `message`, so the code — never the message — is
+   * what reaches the Visitor, translated. An unrecognised code maps to the
+   * generic key, which is what a server rejection resolves to.
    */
   const fieldError = (field: keyof ContactMessage): string | undefined => {
     const error = errors[field];
 
-    if (!error) {
-      return undefined;
-    }
-
-    if (typeof error.type !== "string") {
-      return error.message;
-    }
-
-    return tErrors(errorMessageKey({ code: error.type, path: [field], message: "" }));
+    return error ? tErrors(errorMessageKey(field, String(error.type))) : undefined;
   };
 
   return (
@@ -161,80 +235,36 @@ export const ContactForm = () => {
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <FieldGroup>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <Controller
+                <ContactField
                   control={control}
                   name="name"
-                  render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid || undefined}>
-                      <FieldLabel htmlFor="contact-name">{t("nameLabel")}</FieldLabel>
-                      <Input
-                        {...field}
-                        id="contact-name"
-                        type="text"
-                        autoComplete="name"
-                        placeholder={t("namePlaceholder")}
-                        aria-invalid={fieldState.invalid || undefined}
-                        aria-describedby={
-                          fieldState.invalid ? "contact-name-error" : undefined
-                        }
-                      />
-                      <FieldError id="contact-name-error">
-                        {fieldError("name")}
-                      </FieldError>
-                    </Field>
-                  )}
-                />
+                  label={t("nameLabel")}
+                  placeholder={t("namePlaceholder")}
+                  error={fieldError("name")}
+                >
+                  {(props) => <Input {...props} type="text" autoComplete="name" />}
+                </ContactField>
 
-                <Controller
+                <ContactField
                   control={control}
                   name="email"
-                  render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid || undefined}>
-                      <FieldLabel htmlFor="contact-email">{t("emailLabel")}</FieldLabel>
-                      <Input
-                        {...field}
-                        id="contact-email"
-                        type="email"
-                        autoComplete="email"
-                        placeholder={t("emailPlaceholder")}
-                        aria-invalid={fieldState.invalid || undefined}
-                        aria-describedby={
-                          fieldState.invalid ? "contact-email-error" : undefined
-                        }
-                      />
-                      <FieldError id="contact-email-error">
-                        {fieldError("email")}
-                      </FieldError>
-                    </Field>
-                  )}
-                />
+                  label={t("emailLabel")}
+                  placeholder={t("emailPlaceholder")}
+                  error={fieldError("email")}
+                >
+                  {(props) => <Input {...props} type="email" autoComplete="email" />}
+                </ContactField>
               </div>
 
-              <Controller
+              <ContactField
                 control={control}
                 name="message"
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid || undefined}>
-                    <FieldLabel htmlFor="contact-message">
-                      {t("messageLabel")}
-                    </FieldLabel>
-                    <Textarea
-                      {...field}
-                      id="contact-message"
-                      rows={5}
-                      placeholder={t("messagePlaceholder")}
-                      className="resize-none"
-                      aria-invalid={fieldState.invalid || undefined}
-                      aria-describedby={
-                        fieldState.invalid ? "contact-message-error" : undefined
-                      }
-                    />
-                    <FieldError id="contact-message-error">
-                      {fieldError("message")}
-                    </FieldError>
-                  </Field>
-                )}
-              />
+                label={t("messageLabel")}
+                placeholder={t("messagePlaceholder")}
+                error={fieldError("message")}
+              >
+                {(props) => <Textarea {...props} rows={5} className="resize-none" />}
+              </ContactField>
 
               {/*
                 The decoy. Hidden from Visitors and assistive technology alike,

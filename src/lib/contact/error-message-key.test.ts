@@ -30,7 +30,7 @@ function keyFor(field: "name" | "email" | "message", value: unknown): string {
     throw new Error(`Expected an issue on ${field}`);
   }
 
-  return errorMessageKey(issue);
+  return errorMessageKey(field, issue.code);
 }
 
 describe("errorMessageKey", () => {
@@ -84,9 +84,11 @@ describe("errorMessageKey", () => {
     });
   });
 
-  it("falls back to a generic key for an issue on an unrecognised path", () => {
-    expect(errorMessageKey({ code: "custom", path: ["website"], message: "" })).toBe(
-      "invalid",
-    );
+  it("falls back to a generic key for an unrecognised field", () => {
+    expect(errorMessageKey("website", "custom")).toBe("invalid");
+  });
+
+  it("falls back to a generic key for an unrecognised code on a known field", () => {
+    expect(errorMessageKey("name", "")).toBe("invalid");
   });
 });
