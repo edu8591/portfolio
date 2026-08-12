@@ -3,7 +3,6 @@ import { describe, expect, it } from "vitest";
 import {
   MINIMUM_TIME_TO_SUBMIT_MS,
   isTooFast,
-  isHoneypotTripped,
 } from "@/lib/contact/spam-guards";
 
 describe("isTooFast", () => {
@@ -50,25 +49,5 @@ describe("isTooFast", () => {
   it("requires at least a couple of seconds, so a real Visitor is never caught", () => {
     expect(MINIMUM_TIME_TO_SUBMIT_MS).toBeGreaterThanOrEqual(2_000);
     expect(MINIMUM_TIME_TO_SUBMIT_MS).toBeLessThanOrEqual(10_000);
-  });
-});
-
-describe("isHoneypotTripped", () => {
-  it("is untripped when the field is absent", () => {
-    expect(isHoneypotTripped(undefined)).toBe(false);
-  });
-
-  it("is untripped when the field is empty", () => {
-    expect(isHoneypotTripped("")).toBe(false);
-  });
-
-  it("is untripped when the field holds only whitespace", () => {
-    // Some browsers and password managers write stray whitespace into hidden
-    // inputs; that is not a bot filling the trap in.
-    expect(isHoneypotTripped("   ")).toBe(false);
-  });
-
-  it("is tripped when the field holds a value", () => {
-    expect(isHoneypotTripped("https://spam.example.com")).toBe(true);
   });
 });

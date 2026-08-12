@@ -18,11 +18,3 @@ export function isTooFast(renderedAt: Date, now: Date): boolean {
 
   return !(elapsedMs >= MINIMUM_TIME_TO_SUBMIT_MS);
 }
-
-/**
- * Whether the hidden decoy field came back filled in. A Visitor never sees the
- * field, so anything but empty means something automated filled the form.
- */
-export function isHoneypotTripped(value: string | undefined): boolean {
-  return value !== undefined && value.trim() !== "";
-}

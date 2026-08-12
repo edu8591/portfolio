@@ -1,4 +1,4 @@
-import type { ContactMessage } from "@/lib/contact-message-schema";
+import type { VisibleContactMessageFields } from "@/lib/contact-message-schema";
 
 /**
  * A validated Contact Message together with the time it was submitted.
@@ -8,7 +8,7 @@ import type { ContactMessage } from "@/lib/contact-message-schema";
  * what the form and the Server Action actually parse. The timestamp is added by
  * the server at submission time rather than parsed from the Visitor's input.
  */
-export type SubmittedContactMessage = ContactMessage & {
+export type SubmittedContactMessage = VisibleContactMessageFields & {
   submittedAt: Date;
 };
 
@@ -18,3 +18,14 @@ export type ContactEmail = {
   html: string;
   text: string;
 };
+
+/**
+ * What the Server Action tells the form. `success` is the only outcome that
+ * clears the Visitor's text, and it is returned exclusively after Resend has
+ * confirmed the send (ADR-0001) — or after a spam guard tripped, which is
+ * deliberately indistinguishable.
+ */
+export type SubmitContactMessageResult =
+  | { status: "success" }
+  | { status: "invalid"; fieldErrors: Record<string, string[]> }
+  | { status: "error" };

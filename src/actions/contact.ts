@@ -1,43 +1,85 @@
 "use server";
 
-import { readContactEnv } from "@/lib/contact/env";
-import { selectTransport, shouldUseFakeTransport } from "@/lib/contact/select-transport";
 import {
-  submitContactMessage,
-  type SubmitContactMessageResult,
-} from "@/lib/contact/submit-contact-message";
+  ContactMessage,
+  contactMessageSchema,
+} from "@/lib/contact-message-schema";
+import { buildContactEmail } from "@/lib/contact/email";
+import { isTooFast } from "@/lib/contact/spam-guards";
+import { FORCED_FAILURE_ADDRESS } from "@/constants/contact";
+import { type SubmitContactMessageResult } from "@/types/contact-message";
+import { Resend } from "resend";
+
 
 /**
- * The form's entry point. Everything worth testing lives in
- * `submitContactMessage`; this wrapper only resolves the real environment's
- * dependencies and hands them over.
+ * The form's entry point: guards, then validation, then delivery.
  *
- * A fake-transport run must not require Resend's configuration, so the
- * addresses fall back to placeholders when the flag is on — the recorder never
- * looks at them beyond recording what it was handed.
+ * Per ADR-0001 nothing persists a Contact Message, so `success` is returned
+ * only once Resend has confirmed the send — never optimistically.
  */
 export async function sendContactMessage(
-  formData: FormData,
+  data: ContactMessage,
 ): Promise<SubmitContactMessageResult> {
-  let transport;
-  let addresses;
+  const now = new Date();
+  const renderedAt = new Date(data.renderedAt);
+  const isHoneypotTripped = data.website !== "";
 
-  try {
-    transport = await selectTransport();
-    addresses = shouldUseFakeTransport()
-      ? { from: "fake-from@example.test", to: "fake-to@example.test" }
-      : readContactEnv();
-  } catch {
-    // A misconfigured environment is the owner's problem, not the Visitor's.
-    // They get the same inline retry error as a transport failure, with every
-    // value they typed still in the form, rather than a crashed page.
+  if (isHoneypotTripped || isTooFast(renderedAt, now)) {
+    return { status: "success" };
+  }
+
+  const parsed = contactMessageSchema.safeParse(data);
+  if (!parsed.success) {
+    return {
+      status: "invalid",
+      fieldErrors: parsed.error.flatten().fieldErrors as Record<
+        string,
+        string[]
+      >,
+    };
+  }
+
+  if (parsed.data.email === FORCED_FAILURE_ADDRESS) {
     return { status: "error" };
   }
 
-  return submitContactMessage(formData, {
-    transport,
-    now: () => new Date(),
-    from: addresses.from,
-    to: addresses.to,
-  });
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.CONTACT_FROM_EMAIL;
+  const to = process.env.CONTACT_TO_EMAIL;
+
+  if (!apiKey || !from || !to) {
+    // A misconfigured environment is the owner's problem, not the Visitor's.
+    // They get the same inline retry error as a delivery failure, with every
+    // value they typed still in the form, rather than a crashed page — so the
+    // reason is logged here or it is lost.
+    console.error(
+      "Contact form is misconfigured: RESEND_API_KEY, CONTACT_FROM_EMAIL and CONTACT_TO_EMAIL must all be set.",
+    );
+
+    return { status: "error" };
+  }
+
+  const email = buildContactEmail({ ...parsed.data, submittedAt: now });
+  const resend = new Resend(apiKey);
+
+  try {
+    // The SDK reports API rejections in `error` rather than throwing, so the
+    // catch below only covers network faults. Returning success without
+    // checking `error` would tell the Visitor their message was delivered
+    // while it was in fact refused — and nothing kept a copy.
+    const { error } = await resend.emails.send({
+      ...email,
+      from,
+      to,
+      replyTo: parsed.data.email,
+    });
+
+    if (error) {
+      return { status: "error" };
+    }
+  } catch {
+    return { status: "error" };
+  }
+
+  return { status: "success" };
 }

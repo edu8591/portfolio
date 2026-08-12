@@ -24,5 +24,13 @@ export default defineConfig({
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
+    env: {
+      // Real Resend, so the suite proves the delivery path that ships rather
+      // than a stand-in. `delivered@resend.dev` is Resend's own test recipient:
+      // it accepts and confirms the send without mail reaching an inbox.
+      // Failure is driven from the browser instead, by submitting an address
+      // the action refuses before Resend is called.
+      CONTACT_TO_EMAIL: "delivered@resend.dev",
+    },
   },
 });
