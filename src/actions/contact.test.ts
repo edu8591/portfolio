@@ -68,23 +68,33 @@ describe("sendContactMessage", () => {
     });
 
     it("sends the content the builder produced", async () => {
-      await sendContactMessage(message());
+      // The action stamps its own submission time and the builder renders it
+      // into the body, so the clock is frozen: otherwise this compares two
+      // `new Date()` calls that agree only when they land in the same
+      // millisecond, which is most of the time locally and less often on a
+      // loaded CI runner.
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date("2026-08-12T12:00:00.000Z"));
 
-      const expected = buildContactEmail({
-        name: "Ada Lovelace",
-        email: "ada@example.com",
-        message: "Hello, I saw your portfolio and would love to talk.",
-        // The action stamps its own submission time, which the subject and
-        // body don't depend on, so any instant produces the same content.
-        submittedAt: new Date(),
-      });
+      try {
+        await sendContactMessage(message());
 
-      expect(send).toHaveBeenCalledWith(
-        expect.objectContaining({
-          subject: expected.subject,
-          html: expected.html,
-        }),
-      );
+        const expected = buildContactEmail({
+          name: "Ada Lovelace",
+          email: "ada@example.com",
+          message: "Hello, I saw your portfolio and would love to talk.",
+          submittedAt: new Date(),
+        });
+
+        expect(send).toHaveBeenCalledWith(
+          expect.objectContaining({
+            subject: expected.subject,
+            html: expected.html,
+          }),
+        );
+      } finally {
+        vi.useRealTimers();
+      }
     });
 
     it("sends from the owner's verified address, never the Visitor's", async () => {
