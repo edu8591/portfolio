@@ -204,6 +204,7 @@ test.describe("contact form", () => {
       {
         locale: "es",
         submit: "Enviar Mensaje",
+        labels: { name: "Nombre", email: "Correo", message: "Mensaje" },
         nameError: "Por favor ingresa tu nombre (mínimo 2 caracteres).",
         success: "Mensaje enviado",
         sendAnother: "Enviar otro mensaje",
@@ -211,19 +212,36 @@ test.describe("contact form", () => {
       {
         locale: "jp",
         submit: "メッセージを送信",
+        labels: { name: "お名前", email: "メール", message: "メッセージ" },
         nameError: "お名前を入力してください（2文字以上）。",
         success: "送信完了",
         sendAnother: "別のメッセージを送信",
       },
     ];
 
-    for (const { locale, submit, nameError, success, sendAnother } of locales) {
+    for (const {
+      locale,
+      submit,
+      labels,
+      nameError,
+      success,
+      sendAnother,
+    } of locales) {
       await page.goto(`/${locale}#contact`);
 
       await expect(page.locator("#contact")).toBeVisible();
 
       const submitButton = page.getByRole("button", { name: submit });
       await expect(submitButton).toBeVisible();
+
+      // The field labels themselves, which a submit-button-only check misses:
+      // hardcoded English labels would leave this the last English text on an
+      // otherwise translated form.
+      for (const [field, label] of Object.entries(labels)) {
+        await expect(page.locator(`label[for="contact-${field}"]`)).toHaveText(
+          label,
+        );
+      }
 
       // A translated inline error.
       await page.locator("#contact-name").fill("A");

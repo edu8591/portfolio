@@ -14,8 +14,8 @@ import {
 import { HONEYPOT_FIELD } from "@/constants/contact";
 import { Button, FieldGroup } from "./ui";
 import { MotionCard } from "./motion-card";
-import { Title } from "./title";
 import { FormFieldInput } from "./FormFieldInput";
+import { AnimatedTitle } from "./animated-title";
 
 const VISIBLE_CONTACT_FIELDS = ["name", "email", "message"];
 
@@ -38,6 +38,14 @@ function isVisibleContactField(field: string): field is keyof ContactMessage {
   return (VISIBLE_CONTACT_FIELDS as readonly string[]).includes(field);
 }
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
+};
 /**
  * The Visitor's contact form.
  *
@@ -104,10 +112,15 @@ export const ContactForm = () => {
 
   return (
     <section className="mb-16" id="contact">
-      <Title>{t("title")}</Title>
-      <p className="text-sm sm:text-base leading-relaxed text-foreground/75 mb-8">
+      <AnimatedTitle title={t("title")} />
+
+      <motion.p
+        variants={itemVariants}
+        className="text-foreground/85 leading-relaxed text-base"
+      >
         {t("description")}
-      </p>
+      </motion.p>
+
       <MotionCard animateLayout={false}>
         {isSent ? (
           <motion.div
@@ -132,15 +145,15 @@ export const ContactForm = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <FormFieldInput
                     name="name"
-                    label="Name"
-                    placeholder="Your name"
+                    label={t("nameLabel")}
+                    placeholder={t("namePlaceholder")}
                     autoComplete="name"
                     id="contact-name"
                   />
                   <FormFieldInput
                     name="email"
-                    label="Email"
-                    placeholder="your@email.com"
+                    label={t("emailLabel")}
+                    placeholder={t("emailPlaceholder")}
                     fieldType="email"
                     autoComplete="email"
                     id="contact-email"
@@ -148,9 +161,9 @@ export const ContactForm = () => {
                 </div>
                 <FormFieldInput
                   name="message"
-                  label="Message"
+                  label={t("messageLabel")}
                   fieldType="textarea"
-                  placeholder="What's on your mind?"
+                  placeholder={t("messagePlaceholder")}
                   id="contact-message"
                 />
 
