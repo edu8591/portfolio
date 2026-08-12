@@ -108,15 +108,15 @@
     "successTitle": "送信完了",
     "successMessage": "メッセージが送信されました。すぐにご連絡いたします。",
     "sendAnother": "別のメッセージを送信",
-    "errorMessage": "エラーが発生しました。もう一度お試しください。",
-    "errors": {
-      "nameTooShort": "お名前を入力してください（2文字以上）。",
-      "nameTooLong": "お名前は80文字以内で入力してください。",
-      "emailInvalid": "有効なメールアドレスを入力してください。",
-      "emailTooLong": "メールアドレスは254文字以内で入力してください。",
-      "messageTooShort": "メッセージは10文字以上で入力してください。",
-      "messageTooLong": "メッセージは2000文字以内で入力してください。",
-      "invalid": "この値は無効です。"
-    }
+    "errorMessage": "エラーが発生しました。もう一度お試しください。"
+  },
+  "formErrors": {
+    "nameTooShort": "お名前を入力してください（2文字以上）。",
+    "nameTooLong": "お名前は80文字以内で入力してください。",
+    "emailInvalid": "有効なメールアドレスを入力してください。",
+    "emailTooLong": "メールアドレスは254文字以内で入力してください。",
+    "messageTooShort": "メッセージは10文字以上で入力してください。",
+    "messageTooLong": "メッセージは2000文字以内で入力してください。",
+    "invalid": "この値は無効です。"
   }
 }

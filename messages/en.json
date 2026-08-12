@@ -108,15 +108,15 @@
     "successTitle": "Message sent",
     "successMessage": "Message sent successfully! I'll get back to you soon.",
     "sendAnother": "Send another message",
-    "errorMessage": "Something went wrong. Please try again.",
-    "errors": {
-      "nameTooShort": "Please enter your name (at least 2 characters).",
-      "nameTooLong": "Your name must be 80 characters or fewer.",
-      "emailInvalid": "Please enter a valid email address.",
-      "emailTooLong": "Your email address must be 254 characters or fewer.",
-      "messageTooShort": "Please write a message of at least 10 characters.",
-      "messageTooLong": "Your message must be 2000 characters or fewer.",
-      "invalid": "This value is not valid."
-    }
+    "errorMessage": "Something went wrong. Please try again."
+  },
+  "formErrors": {
+    "nameTooShort": "Please enter your name (at least 2 characters).",
+    "nameTooLong": "Your name must be 80 characters or fewer.",
+    "emailInvalid": "Please enter a valid email address.",
+    "emailTooLong": "Your email address must be 254 characters or fewer.",
+    "messageTooShort": "Please write a message of at least 10 characters.",
+    "messageTooLong": "Your message must be 2000 characters or fewer.",
+    "invalid": "This value is not valid."
   }
 }
