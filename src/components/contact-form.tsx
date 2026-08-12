@@ -1,23 +1,31 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as motion from "motion/react-client";
 
 import { sendContactMessage } from "@/actions/contact";
-import { contactMessageSchema, type ContactMessage } from "@/lib/contact-message-schema";
-import { errorMessageKey } from "@/lib/contact/error-message-key";
-import { HONEYPOT_FIELD, RENDERED_AT_FIELD } from "@/lib/contact/submit-contact-message";
-import { Button, FieldGroup, Input, Textarea } from "./ui";
-import { ContactField } from "./contact-field";
+import {
+  contactMessageSchema,
+  type ContactMessage,
+} from "@/lib/contact-message-schema";
+import { HONEYPOT_FIELD } from "@/lib/contact/transport";
+import { Button, FieldGroup } from "./ui";
 import { MotionCard } from "./motion-card";
 import { Title } from "./title";
+import { FormFieldInput } from "./FormFieldInput";
 
-const CONTACT_FIELDS = ["name", "email", "message"] as const;
+const VISIBLE_CONTACT_FIELDS = ["name", "email", "message"];
 
-const EMPTY_MESSAGE: ContactMessage = { name: "", email: "", message: "" };
+const createEmptyMessage = (): ContactMessage => ({
+  name: "",
+  email: "",
+  message: "",
+  renderedAt: new Date().toISOString(),
+  website: undefined,
+});
 
 /**
  * The `type` given to a field the Server Action rejected. No Zod code matches
@@ -26,8 +34,8 @@ const EMPTY_MESSAGE: ContactMessage = { name: "", email: "", message: "" };
  */
 const SERVER_REJECTED = "server-rejected";
 
-function isContactField(field: string): field is keyof ContactMessage {
-  return (CONTACT_FIELDS as readonly string[]).includes(field);
+function isVisibleContactField(field: string): field is keyof ContactMessage {
+  return (VISIBLE_CONTACT_FIELDS as readonly string[]).includes(field);
 }
 
 /**
@@ -44,101 +52,62 @@ function isContactField(field: string): field is keyof ContactMessage {
  */
 export const ContactForm = () => {
   const t = useTranslations("contact");
-  const tErrors = useTranslations("contact.errors");
-  const [isPending, startTransition] = useTransition();
   const [isSent, setIsSent] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
 
-  // Captured on mount rather than at submit, so the too-fast guard measures how
-  // long the Visitor actually had the form in front of them. It resets with the
-  // form, so a second message is timed from when its empty form appeared.
-  const [renderedAt, setRenderedAt] = useState(() => new Date().toISOString());
-
-  const {
-    control,
-    handleSubmit,
-    reset,
-    setError,
-    formState: { errors },
-  } = useForm<ContactMessage>({
+  const form = useForm<ContactMessage>({
     resolver: zodResolver(contactMessageSchema),
-    defaultValues: EMPTY_MESSAGE,
-    // The schema's transforms (trim, lowercase) run during validation, so the
-    // values handed to the action are already normalised.
-    mode: "onSubmit",
+    defaultValues: createEmptyMessage(),
+    mode: "onTouched",
+    reValidateMode: "onChange",
   });
 
-  const onSubmit = (values: ContactMessage, event?: React.BaseSyntheticEvent) => {
-    setSubmitError(false);
+  /**
+   * The submit handler is `async` so react-hook-form's `isSubmitting` stays
+   * true for as long as the action runs — that flag is what disables the
+   * control, so nothing here may resolve before the send does.
+   */
+  const onSubmit = async (values: ContactMessage) => {
+    const website =
+      (document.getElementById(HONEYPOT_FIELD) as HTMLInputElement)?.value ??
+      "";
 
-    // The honeypot is deliberately outside react-hook-form's control — the form
-    // element itself is the only thing that needs to know a bot filled it in.
-    const honeypot = event?.target instanceof HTMLFormElement
-      ? new FormData(event.target).get(HONEYPOT_FIELD)
-      : null;
+    const result = await sendContactMessage({ ...values, website });
 
-    const formData = new FormData();
-    formData.set("name", values.name);
-    formData.set("email", values.email);
-    formData.set("message", values.message);
-    formData.set(HONEYPOT_FIELD, typeof honeypot === "string" ? honeypot : "");
-    formData.set(RENDERED_AT_FIELD, renderedAt);
+    if (result.status === "success") {
+      setIsSent(true);
+      return;
+    }
 
-    startTransition(async () => {
-      const result = await sendContactMessage(formData);
-
-      if (result.status === "success") {
-        setIsSent(true);
-        return;
-      }
-
-      if (result.status === "invalid") {
-        // The server disagreed with the client's own parse — normally
-        // unreachable, since both run the same schema. It carries flattened
-        // messages rather than issue codes, so there is nothing precise to
-        // translate; the generic key is the honest answer. Surfaced on the
-        // fields rather than as a form-level error, with every value kept.
-        for (const [field, messages] of Object.entries(result.fieldErrors)) {
-          if (isContactField(field) && messages?.length) {
-            setError(field, { type: SERVER_REJECTED });
-          }
+    if (result.status === "invalid") {
+      // The server disagreed with the client's own parse — normally
+      // unreachable, since both run the same schema. It carries flattened
+      // messages rather than issue codes, so there is nothing precise to
+      // translate; the generic key is the honest answer. Surfaced on the
+      // fields rather than as a form-level error, with every value kept.
+      for (const [field, messages] of Object.entries(result.fieldErrors)) {
+        if (isVisibleContactField(field) && messages?.length) {
+          form.setError(field, { type: SERVER_REJECTED });
         }
-        return;
       }
+      return;
+    }
 
-      setSubmitError(true);
-    });
+    // A transport failure belongs to the form, not to any one field. `root`
+    // errors clear themselves on the next submit, so there is no flag to reset.
+    form.setError("root", { message: t("errorMessage") });
   };
 
   const sendAnother = () => {
-    reset(EMPTY_MESSAGE);
-    setRenderedAt(new Date().toISOString());
+    form.reset(createEmptyMessage());
     setIsSent(false);
-    setSubmitError(false);
-  };
-
-  /**
-   * The message to show under a field.
-   *
-   * The Zod resolver stores the issue code as the error's `type` and Zod's
-   * untranslated English as its `message`, so the code — never the message — is
-   * what reaches the Visitor, translated. An unrecognised code maps to the
-   * generic key, which is what a server rejection resolves to.
-   */
-  const fieldError = (field: keyof ContactMessage): string | undefined => {
-    const error = errors[field];
-
-    return error ? tErrors(errorMessageKey(field, String(error.type))) : undefined;
   };
 
   return (
     <section className="mb-16" id="contact">
       <Title>{t("title")}</Title>
-
       <p className="text-sm sm:text-base leading-relaxed text-foreground/75 mb-8">
         {t("description")}
       </p>
-
       <MotionCard>
         {isSent ? (
           <motion.div
@@ -148,7 +117,7 @@ export const ContactForm = () => {
             className="flex flex-col items-start gap-4 py-4"
             data-testid="contact-success"
           >
-            <h4 className="text-lg font-semibold text-foreground">
+            <h4 className="text-xl font-serif font-semibold text-foreground">
               {t("successTitle")}
             </h4>
             <p className="text-sm text-foreground/75">{t("successMessage")}</p>
@@ -157,67 +126,56 @@ export const ContactForm = () => {
             </Button>
           </motion.div>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <FieldGroup>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <ContactField
-                  control={control}
-                  name="name"
-                  label={t("nameLabel")}
-                  placeholder={t("namePlaceholder")}
-                  error={fieldError("name")}
-                >
-                  {(props) => <Input {...props} type="text" autoComplete="name" />}
-                </ContactField>
+          <FormProvider {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
+              <FieldGroup>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <FormFieldInput
+                    name="name"
+                    label="Name"
+                    placeholder="Your name"
+                    autoComplete="name"
+                    id="contact-name"
+                  />
+                  <FormFieldInput
+                    name="email"
+                    label="Email"
+                    placeholder="your@email.com"
+                    fieldType="email"
+                    autoComplete="email"
+                    id="contact-email"
+                  />
+                </div>
+                <FormFieldInput
+                  name="message"
+                  label="Message"
+                  fieldType="textarea"
+                  placeholder="What's on your mind?"
+                  id="contact-message"
+                />
 
-                <ContactField
-                  control={control}
-                  name="email"
-                  label={t("emailLabel")}
-                  placeholder={t("emailPlaceholder")}
-                  error={fieldError("email")}
-                >
-                  {(props) => <Input {...props} type="email" autoComplete="email" />}
-                </ContactField>
-              </div>
+                <FormFieldInput name="website" hidden noError />
 
-              <ContactField
-                control={control}
-                name="message"
-                label={t("messageLabel")}
-                placeholder={t("messagePlaceholder")}
-                error={fieldError("message")}
-              >
-                {(props) => <Textarea {...props} rows={5} className="resize-none" />}
-              </ContactField>
+                <div className="flex flex-col items-start gap-3 pt-2">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={form.formState.isSubmitting}
+                  >
+                    {form.formState.isSubmitting
+                      ? t("sending")
+                      : t("submitButton")}
+                  </Button>
 
-              {/*
-                The decoy. Hidden from Visitors and assistive technology alike,
-                but a real focusable-free input a bot will happily fill in.
-              */}
-              <input
-                type="text"
-                name={HONEYPOT_FIELD}
-                defaultValue=""
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                className="absolute left-[-9999px] h-0 w-0 opacity-0"
-              />
-
-              <div className="flex flex-col items-start gap-3 pt-2">
-                <Button type="submit" size="lg" disabled={isPending}>
-                  {isPending ? t("sending") : t("submitButton")}
-                </Button>
-
-                {submitError && (
-                  <p role="alert" className="text-sm text-destructive">
-                    {t("errorMessage")}
-                  </p>
-                )}
-              </div>
-            </FieldGroup>
-          </form>
+                  {form.formState.errors.root && (
+                    <p role="alert" className="text-sm text-destructive">
+                      {form.formState.errors.root.message}
+                    </p>
+                  )}
+                </div>
+              </FieldGroup>
+            </form>
+          </FormProvider>
         )}
       </MotionCard>
     </section>

@@ -13,6 +13,13 @@ export const contactMessageSchema = z.object({
   name: z.string().trim().min(2).max(80),
   email: z.string().trim().toLowerCase().pipe(z.email().max(254)),
   message: z.string().trim().min(10).max(2000),
+  website: z.string().optional(), // Honeypot field, should be empty
+  renderedAt: z.string(), // Timestamp of when the form was rendered
 });
 
 export type ContactMessage = z.infer<typeof contactMessageSchema>;
+
+export type VisibleContactMessageFields = Omit<
+  ContactMessage,
+  "website" | "renderedAt"
+>;

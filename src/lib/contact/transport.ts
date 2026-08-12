@@ -18,6 +18,20 @@ export type OutboundEmail = ContactEmail & {
  * transport that resolves without delivering would break the one guarantee the
  * feature makes.
  */
+/** The name of the decoy field. A Visitor never sees it; bots fill it in. */
+export const HONEYPOT_FIELD = "website";
+
+/**
+ * What the Server Action tells the form. `success` is the only outcome that
+ * clears the Visitor's text, and it is returned exclusively after a transport
+ * has confirmed the send (ADR-0001) — or after a spam guard tripped, which is
+ * deliberately indistinguishable.
+ */
+export type SubmitContactMessageResult =
+  | { status: "success" }
+  | { status: "invalid"; fieldErrors: Record<string, string[]> }
+  | { status: "error" };
+
 export type EmailTransport = {
   send(email: OutboundEmail): Promise<void>;
 };

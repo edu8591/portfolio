@@ -1,4 +1,7 @@
-import { createFakeTransport, type FakeTransport } from "@/lib/contact/fake-transport";
+import {
+  createFakeTransport,
+  type FakeTransport,
+} from "@/lib/contact/fake-transport";
 import type { EmailTransport } from "@/lib/contact/transport";
 
 /**
@@ -33,7 +36,8 @@ export async function selectTransport(): Promise<EmailTransport> {
     return fakeTransport;
   }
 
-  const { createResendTransport } = await import("@/lib/contact/resend-transport");
+  const { createResendTransport } =
+    await import("@/lib/contact/resend-transport");
 
   return createResendTransport();
 }
