@@ -6,6 +6,7 @@ const validContactMessage = {
   name: "Ada Lovelace",
   email: "ada@example.com",
   message: "I saw your portfolio and would like to talk about a project.",
+  renderedAt: new Date().toISOString(),
 };
 
 describe("contactMessageSchema", () => {
@@ -123,7 +124,10 @@ describe("contactMessageSchema", () => {
       const email = `${local}@example.com`;
 
       expect(email).toHaveLength(254);
-      expect(contactMessageSchema.safeParse({ ...validContactMessage, email }).success).toBe(true);
+      expect(
+        contactMessageSchema.safeParse({ ...validContactMessage, email })
+          .success,
+      ).toBe(true);
     });
 
     it("rejects an address of 255 characters", () => {
@@ -131,7 +135,10 @@ describe("contactMessageSchema", () => {
       const email = `${local}@example.com`;
 
       expect(email).toHaveLength(255);
-      expect(contactMessageSchema.safeParse({ ...validContactMessage, email }).success).toBe(false);
+      expect(
+        contactMessageSchema.safeParse({ ...validContactMessage, email })
+          .success,
+      ).toBe(false);
     });
   });
 
@@ -185,12 +192,14 @@ describe("contactMessageSchema", () => {
 
     it("returns trimmed values", () => {
       const result = contactMessageSchema.parse({
+        ...validContactMessage,
         name: "  Ada Lovelace  ",
         email: "  ada@example.com  ",
         message: `  ${validContactMessage.message}  `,
       });
 
       expect(result).toEqual({
+        ...validContactMessage,
         name: "Ada Lovelace",
         email: "ada@example.com",
         message: validContactMessage.message,

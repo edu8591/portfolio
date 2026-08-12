@@ -55,6 +55,32 @@ test.describe("contact form", () => {
     await expect(name).toHaveValue("A");
   });
 
+  test("validates before submit and clears the error as the Visitor types", async ({
+    page,
+  }) => {
+    await page.goto("/en#contact");
+
+    const { name, email } = fields(page);
+    const nameError = page.locator("#contact-name-error");
+
+    // Nothing is wrong until the Visitor has actually engaged with the field.
+    await expect(nameError).toHaveCount(0);
+
+    // Leaving a touched field invalid reports it without waiting for a submit.
+    await name.click();
+    await name.fill("A");
+    await email.click();
+
+    await expect(nameError).toHaveText("Please enter your name (at least 2 characters).");
+
+    // And fixing it clears the error as they type, not on the next submit.
+    await name.click();
+    await page.keyboard.type("da Lovelace", { delay: 10 });
+
+    await expect(nameError).toHaveCount(0);
+    await expect(name).not.toHaveAttribute("aria-invalid", "true");
+  });
+
   test("keeps focus and caret in the field while the Visitor types", async ({ page }) => {
     await page.goto("/en#contact");
 
