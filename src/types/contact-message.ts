@@ -18,3 +18,14 @@ export type ContactEmail = {
   html: string;
   text: string;
 };
+
+/**
+ * What the Server Action tells the form. `success` is the only outcome that
+ * clears the Visitor's text, and it is returned exclusively after Resend has
+ * confirmed the send (ADR-0001) — or after a spam guard tripped, which is
+ * deliberately indistinguishable.
+ */
+export type SubmitContactMessageResult =
+  | { status: "success" }
+  | { status: "invalid"; fieldErrors: Record<string, string[]> }
+  | { status: "error" };

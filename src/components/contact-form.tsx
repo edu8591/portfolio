@@ -11,7 +11,7 @@ import {
   contactMessageSchema,
   type ContactMessage,
 } from "@/lib/contact-message-schema";
-import { HONEYPOT_FIELD } from "@/lib/contact/transport";
+import { HONEYPOT_FIELD } from "@/constants/contact";
 import { Button, FieldGroup } from "./ui";
 import { MotionCard } from "./motion-card";
 import { Title } from "./title";

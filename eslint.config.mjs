@@ -9,11 +9,6 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig([
   {
-    // `eslint-config-next` ignores `.next` by name, so the end-to-end run's
-    // second build directory has to be named here as well.
-    ignores: [".next-failing-transport/**"],
-  },
-  {
     extends: [...nextCoreWebVitals, ...nextTypescript],
   },
 ]);

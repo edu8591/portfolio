@@ -1,10 +1,26 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { sendContactMessage } from "@/actions/contact";
+import { FORCED_FAILURE_ADDRESS } from "@/constants/contact";
 import type { ContactMessage } from "@/lib/contact-message-schema";
 import { buildContactEmail } from "@/lib/contact/email";
-import { fakeTransport } from "@/lib/contact/select-transport";
 import { MINIMUM_TIME_TO_SUBMIT_MS } from "@/lib/contact/spam-guards";
+
+/**
+ * Resend stands in for the network here. The action owns the client, so the
+ * SDK is the seam: mocking it exercises the real delivery code — including what
+ * it puts in `from`, `to`, and `replyTo` — without a key, quota, or a request.
+ */
+const send = vi.fn();
+
+vi.mock("resend", () => ({
+  Resend: class {
+    emails = { send };
+  },
+}));
+
+const FROM = "portfolio@owner.example.com";
+const TO = "owner@owner.example.com";
 
 /**
  * The action reads the clock itself, so a render time is chosen relative to
@@ -24,15 +40,17 @@ const message = (overrides: Partial<ContactMessage> = {}): ContactMessage => ({
 });
 
 beforeEach(() => {
-  // The recorder stands in for Resend, so the whole action runs without
-  // network access or the real transport's configuration.
-  process.env.CONTACT_USE_FAKE_TRANSPORT = "true";
+  process.env.RESEND_API_KEY = "re_test_key";
+  process.env.CONTACT_FROM_EMAIL = FROM;
+  process.env.CONTACT_TO_EMAIL = TO;
+  send.mockReset();
+  send.mockResolvedValue({ data: { id: "sent" }, error: null });
 });
 
 afterEach(() => {
-  delete process.env.CONTACT_USE_FAKE_TRANSPORT;
-  delete process.env.CONTACT_FAKE_TRANSPORT_FAILS;
-  fakeTransport.reset();
+  delete process.env.RESEND_API_KEY;
+  delete process.env.CONTACT_FROM_EMAIL;
+  delete process.env.CONTACT_TO_EMAIL;
 });
 
 describe("sendContactMessage", () => {
@@ -43,10 +61,10 @@ describe("sendContactMessage", () => {
       });
     });
 
-    it("records exactly one send", async () => {
+    it("sends exactly once", async () => {
       await sendContactMessage(message());
 
-      expect(fakeTransport.sent).toHaveLength(1);
+      expect(send).toHaveBeenCalledTimes(1);
     });
 
     it("sends the content the builder produced", async () => {
@@ -61,22 +79,36 @@ describe("sendContactMessage", () => {
         submittedAt: new Date(),
       });
 
-      expect(fakeTransport.sent[0]).toMatchObject({
-        subject: expected.subject,
-        html: expected.html,
-      });
+      expect(send).toHaveBeenCalledWith(
+        expect.objectContaining({
+          subject: expected.subject,
+          html: expected.html,
+        }),
+      );
+    });
+
+    it("sends from the owner's verified address, never the Visitor's", async () => {
+      await sendContactMessage(message());
+
+      expect(send).toHaveBeenCalledWith(
+        expect.objectContaining({ from: FROM, to: TO }),
+      );
     });
 
     it("sets the Visitor's address as replyTo, so replying answers them", async () => {
       await sendContactMessage(message());
 
-      expect(fakeTransport.sent[0].replyTo).toBe("ada@example.com");
+      expect(send).toHaveBeenCalledWith(
+        expect.objectContaining({ replyTo: "ada@example.com" }),
+      );
     });
 
     it("sends the normalised address the schema produced", async () => {
       await sendContactMessage(message({ email: "  ADA@Example.COM  " }));
 
-      expect(fakeTransport.sent[0].replyTo).toBe("ada@example.com");
+      expect(send).toHaveBeenCalledWith(
+        expect.objectContaining({ replyTo: "ada@example.com" }),
+      );
     });
   });
 
@@ -98,7 +130,7 @@ describe("sendContactMessage", () => {
     it("sends nothing", async () => {
       await sendContactMessage(message({ email: "nope" }));
 
-      expect(fakeTransport.sent).toEqual([]);
+      expect(send).not.toHaveBeenCalled();
     });
 
     it("reports every invalid field at once", async () => {
@@ -120,7 +152,7 @@ describe("sendContactMessage", () => {
       );
 
       expect(result).toMatchObject({ status: "invalid" });
-      expect(fakeTransport.sent).toEqual([]);
+      expect(send).not.toHaveBeenCalled();
     });
   });
 
@@ -135,13 +167,13 @@ describe("sendContactMessage", () => {
     it("sends nothing when the honeypot is filled", async () => {
       await sendContactMessage(message({ website: "https://spam.example.com" }));
 
-      expect(fakeTransport.sent).toEqual([]);
+      expect(send).not.toHaveBeenCalled();
     });
 
     it("lets an untouched honeypot through, so Visitors are never blocked", async () => {
       await sendContactMessage(message({ website: "" }));
 
-      expect(fakeTransport.sent).toHaveLength(1);
+      expect(send).toHaveBeenCalledTimes(1);
     });
 
     it("returns a success-shaped result when the submission is too fast", async () => {
@@ -153,7 +185,7 @@ describe("sendContactMessage", () => {
     it("sends nothing when the submission is too fast", async () => {
       await sendContactMessage(message({ renderedAt: new Date().toISOString() }));
 
-      expect(fakeTransport.sent).toEqual([]);
+      expect(send).not.toHaveBeenCalled();
     });
 
     it("treats an unparseable render time as too fast", async () => {
@@ -162,12 +194,12 @@ describe("sendContactMessage", () => {
       );
 
       expect(result).toEqual({ status: "success" });
-      expect(fakeTransport.sent).toEqual([]);
+      expect(send).not.toHaveBeenCalled();
     });
 
     it("runs the guards before the transport is ever reached", async () => {
-      // A tripped guard must cost nothing, even when the transport is broken.
-      process.env.CONTACT_FAKE_TRANSPORT_FAILS = "true";
+      // A tripped guard must cost nothing, even when delivery is broken.
+      send.mockRejectedValue(new Error("transport down"));
 
       await expect(
         sendContactMessage(message({ website: "bot" })),
@@ -176,26 +208,52 @@ describe("sendContactMessage", () => {
   });
 
   describe("confirmed delivery", () => {
-    beforeEach(() => {
-      process.env.CONTACT_FAKE_TRANSPORT_FAILS = "true";
-    });
+    it("returns a typed error when the SDK reports one", async () => {
+      // The SDK resolves with an `error` rather than throwing, so a success
+      // returned here would tell the Visitor their message was delivered when
+      // it was refused — and nothing kept a copy of it.
+      send.mockResolvedValue({ data: null, error: { message: "rejected" } });
 
-    it("returns a typed error when the transport fails", async () => {
       await expect(sendContactMessage(message())).resolves.toEqual({
         status: "error",
       });
     });
 
-    it("does not throw when the transport fails", async () => {
+    it("returns a typed error when the send throws", async () => {
+      send.mockRejectedValue(new Error("network down"));
+
+      await expect(sendContactMessage(message())).resolves.toEqual({
+        status: "error",
+      });
+    });
+
+    it("does not throw when the send fails", async () => {
       // The Visitor gets an inline error and keeps their text; an unhandled
       // rejection would give them a crashed page instead.
+      send.mockRejectedValue(new Error("network down"));
+
       await expect(sendContactMessage(message())).resolves.toBeDefined();
     });
 
-    it("records nothing when the transport fails", async () => {
-      await sendContactMessage(message());
+    it("returns an error when the environment is misconfigured", async () => {
+      delete process.env.CONTACT_FROM_EMAIL;
 
-      expect(fakeTransport.sent).toEqual([]);
+      await expect(sendContactMessage(message())).resolves.toEqual({
+        status: "error",
+      });
+      expect(send).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("the forced-failure address", () => {
+    it("returns an error without calling Resend", async () => {
+      // Reserved by RFC 6761, so a Visitor cannot reach this branch by
+      // accident, and an end-to-end failure test costs no quota.
+      await expect(
+        sendContactMessage(message({ email: FORCED_FAILURE_ADDRESS })),
+      ).resolves.toEqual({ status: "error" });
+
+      expect(send).not.toHaveBeenCalled();
     });
   });
 });
