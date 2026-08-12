@@ -1,8 +1,8 @@
 import { AboutMe } from "./about-me";
+import { ContactForm } from "./contact-form";
 import { Experience } from "./experience";
 import { Projects } from "./projects";
 import { Technologies } from "./technologies";
-// import { Contact } from "./contact";
 
 export const InfoSection = () => {
   return (
@@ -11,7 +11,7 @@ export const InfoSection = () => {
       <Experience />
       <Technologies />
       <Projects />
-      {/* <Contact /> */}
+      <ContactForm />
       <div className="h-8"></div>
     </div>
   );

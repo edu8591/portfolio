@@ -8,10 +8,16 @@ A multilingual portfolio website built with **Next.js 14** using the App Router.
 
 ## Development Commands
 
-- `npm run dev` — Start development server at http://localhost:3000
-- `npm run build` — Create production build
-- `npm run start` — Run production build locally
-- `npm lint` — Run ESLint checks
+This repo uses **pnpm** (see `packageManager` in package.json).
+
+- `pnpm dev` — Start development server at http://localhost:3000
+- `pnpm build` — Create production build
+- `pnpm start` — Run production build locally
+- `pnpm lint` — Run ESLint checks
+- `pnpm typecheck` — Run `tsc --noEmit`
+- `pnpm test` — Run unit tests (Vitest, single pass)
+- `pnpm test:watch` — Run unit tests in watch mode
+- `pnpm test:e2e` — Run end-to-end tests (Playwright); boots its own dev server on port 3100
 
 ## Architecture
 
@@ -63,8 +69,37 @@ A multilingual portfolio website built with **Next.js 14** using the App Router.
 - Server components preferred where possible
 - Type safety enforced (strict: true in tsconfig.json)
 - Path aliases via `@/*` → `./src/*`
-- No tests or CI configured; focus is on visual correctness during dev
+- CI (`.github/workflows/main.yml`) currently runs the production build only
+
+## Testing
+
+Two harnesses, each with a distinct job. Test external behaviour at the seams, not implementation details.
+
+| Layer | Tool | Location | Config |
+|-------|------|----------|--------|
+| Unit | Vitest (`node` environment) | `tests/unit/**/*.test.ts`, co-located `src/**/*.test.ts` | `vitest.config.ts` |
+| E2E | Playwright (Chromium) | `tests/e2e/**/*.spec.ts` | `playwright.config.ts` |
+
+- Unit tests import pure modules directly; `@/*` aliases resolve via `resolve.tsconfigPaths`
+- E2E drives a real browser against a real dev server, faking only the outermost I/O
+- No component/jsdom tests — the `node` environment is deliberate; component behaviour is covered by Playwright
+- `include` matches `.ts` only, so a unit test must not be `.tsx` or it will be silently skipped
+- First-time E2E setup needs `pnpm exec playwright install chromium`
 
 ## Caveman Skills
 
 Always use caveman skills from `.agents/` directory for recurring or complex development tasks. Check `.agents/` for available skills before implementing custom solutions.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues on `edu8591/portfolio` (uses the `gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default label vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context — one `CONTEXT.md` + `docs/adr/` at the repo root (created lazily). See `docs/agents/domain.md`.
