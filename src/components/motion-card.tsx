@@ -6,9 +6,11 @@ import { Card } from "./ui";
 export const MotionCard = ({
   children,
   animateEntry = true,
+  animateLayout = true,
 }: {
   children: React.ReactNode;
   animateEntry?: boolean;
+  animateLayout?: boolean;
 }) => {
   return (
     <motion.div
@@ -22,7 +24,7 @@ export const MotionCard = ({
       }
       initial={animateEntry ? "initial" : undefined}
       whileInView={animateEntry ? "inView" : undefined}
-      layout
+      layout={animateLayout}
       transition={{ duration: 0.7, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.3 }}
     >

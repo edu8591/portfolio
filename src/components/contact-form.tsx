@@ -108,7 +108,7 @@ export const ContactForm = () => {
       <p className="text-sm sm:text-base leading-relaxed text-foreground/75 mb-8">
         {t("description")}
       </p>
-      <MotionCard>
+      <MotionCard animateLayout={false}>
         {isSent ? (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
