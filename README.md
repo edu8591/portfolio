@@ -1,3 +1,6 @@
+[![Build](https://github.com/edu8591/portfolio/actions/workflows/build.yml/badge.svg)](https://github.com/edu8591/portfolio/actions/workflows/build.yml)
+[![Unit tests](https://github.com/edu8591/portfolio/actions/workflows/unit.yml/badge.svg)](https://github.com/edu8591/portfolio/actions/workflows/unit.yml)
+[![E2E tests](https://github.com/edu8591/portfolio/actions/workflows/e2e.yml/badge.svg)](https://github.com/edu8591/portfolio/actions/workflows/e2e.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/74a4811a-488f-4847-beea-9d07f22a39bf/deploy-status)](https://app.netlify.com/projects/edodesu-porfolio/deploys)
 
 ## Getting Started
