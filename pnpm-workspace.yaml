@@ -8,5 +8,4 @@ allowBuilds:
 overrides:
   postcss: ">=8.5.10"
   next>postcss: ">=8.5.10"
-  hono: ">=4.12.25"
   js-yaml: ">=4.1.2"
